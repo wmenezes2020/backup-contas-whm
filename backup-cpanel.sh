@@ -250,11 +250,6 @@ umask 077
 # ---------------------------------------------------------------------------
 tem() { command -v "$1" >/dev/null 2>&1; }
 
-conta_linhas() {
-  [[ -f "$1" ]] || { echo 0; return 0; }
-  awk 'NF{n++} END{print n+0}' "$1" 2>/dev/null || echo 0
-}
-
 legivel() {
   local b="${1:-0}"
   awk -v b="$b" 'BEGIN{
@@ -417,20 +412,6 @@ escreve_remote_rclone() {
   } >> "$conf"
   chmod 600 "$conf"
   feito "remote '$DRIVE_REMOTE' gravado em $conf"
-}
-
-valida_token() {
-  local t="$1"
-  if [[ -z "$t" ]]; then
-    falha "nao achei um token na saida do rclone"
-    return 1
-  fi
-  if [[ "$t" != *access_token* || "$t" != *refresh_token* ]]; then
-    falha "o token nao tem access_token e refresh_token"
-    aviso "sem refresh_token o envio pararia de funcionar em uma hora. Autorize de novo."
-    return 1
-  fi
-  return 0
 }
 
 escopo_conf() {

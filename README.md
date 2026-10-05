@@ -94,6 +94,56 @@ pacotes da distribuição primeiro e, se não achar lá, pede sua autorização 
 baixar o instalador oficial de `rclone.org`. O resto (`tar`, `gzip`, `awk`,
 `du`, `df`, `sha256sum`) já vem em qualquer servidor cPanel.
 
+## Primeira execução, na ordem
+
+Quatro comandos. O terceiro é o único que demora.
+
+**1. Veja o que ele acharia, sem gerar e sem enviar nada**
+
+```bash
+sudo /root/backup-cpanel.sh --simular
+```
+
+Olhe três coisas na saída: a lista de contas está completa, nada importante caiu
+na seção de pastas de fora, e **o espaço livre no destino é maior que a maior
+conta**. Se `/backup` for uma partição pequena, aponte o destino para onde cabe,
+com `-d /home/_backup` ou outro caminho fora das contas.
+
+**2. Ligue o Google Drive**
+
+```bash
+sudo /root/backup-cpanel.sh --conectar
+```
+
+Abre o link, Permitir, copia o endereço em que o navegador caiu, cola. Uma vez
+só.
+
+**3. Rode uma conta primeiro, e confira no Drive**
+
+```bash
+sudo /root/backup-cpanel.sh --contas UMA_CONTA --manter-local
+```
+
+Com `--manter-local` o arquivo fica também no servidor, então você compara os
+dois. Abra o Drive, veja `BACKUP-CPANEL/UMA_CONTA.tar.gz`, e confira o conteúdo
+antes de confiar no resto:
+
+```bash
+tar -tzf /backup/cpanel/UMA_CONTA.tar.gz | head -20
+```
+
+**4. Rode tudo**
+
+```bash
+sudo /root/backup-cpanel.sh
+```
+
+No fim, o relatório diz conta por conta o que entrou, quanto pesou e quanto
+demorou. Código de saída 2 quer dizer que alguma conta falhou, e as falhas
+aparecem listadas no final da tela.
+
+Depois disso, agende no cron (seção [Agendar](#agendar)).
+
 ## Conectar o Google Drive
 
 Um link e uma colada. Nada para instalar na sua máquina, nada para criar no
