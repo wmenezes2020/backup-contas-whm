@@ -150,8 +150,17 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    if not to_json(G, comunidades, str(SAIDA / "graph.json"), community_labels=rotulos):
-        print("ERRO: o to_json recusou escrever (grafo menor que o existente)", file=sys.stderr)
+    # O graphify recusa escrever um grafo com menos nos que o anterior, para nao
+    # estragar um mapa bom com uma extracao que falhou pela metade. Quando o
+    # codigo encolheu de verdade, como ao remover funcao morta, a recusa esta
+    # errada, e ai se passa --forcar DEPOIS de conferir a diferenca.
+    forcar = "--forcar" in sys.argv
+    if not to_json(G, comunidades, str(SAIDA / "graph.json"),
+                   community_labels=rotulos, force=forcar):
+        print("ERRO: o to_json recusou escrever, porque o grafo novo tem menos nos "
+              "que o atual.", file=sys.stderr)
+        print("      Se o codigo encolheu de proposito, confira a diferenca e rode "
+              "de novo com --forcar.", file=sys.stderr)
         return 1
 
     # passo que o to_json nao faz: o HTML e o mapa que a pessoa abre no navegador

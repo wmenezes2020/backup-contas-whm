@@ -122,6 +122,13 @@ próprio bash (`${caminho##*/}`, `IFS=: read`) e ler o
 `/var/cpanel/users/<user>` em uma passada. Em servidor com centenas de contas
 isso é tempo real economizado, não cosmético.
 
+**O graphify recusa gravar um grafo menor que o anterior.** E protecao contra
+extracao que falhou pela metade estragar um mapa bom. Quando o codigo encolheu
+de verdade, como ao apagar funcao morta, a recusa esta errada: confira a
+diferenca e rode `python scripts/gerar-grafo.py --forcar`. Sem o `--forcar` o
+script sai com 1 e o `graphify-out/` fica com o mapa velho, que e pior que nao
+ter mapa, porque parece atual.
+
 ## Regras de ouro que se aplicam aqui
 
 - **Travessão proibido** em tudo que uma pessoa lê: README, PRD, SDD, ajuda do
