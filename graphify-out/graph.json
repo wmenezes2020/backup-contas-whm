@@ -2232,7 +2232,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/gerar-grafo.py",
-      "source_location": "L59",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -3239,5 +3239,6 @@
       "weight": 1.0
     }
   ],
-  "hyperedges": []
+  "hyperedges": [],
+  "built_at_commit": "4f009eb434066ccfd7aca20b21e761158e3be3e8"
 }

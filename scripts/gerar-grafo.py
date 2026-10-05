@@ -43,8 +43,13 @@ def main() -> int:
     from graphify.export import to_json, to_html
 
     SAIDA.mkdir(parents=True, exist_ok=True)
-    # o alvo fica gravado para a proxima sessao repetir o mesmo escopo sem adivinhar
-    ALVO_GRAVADO.write_text(str(RAIZ), encoding="utf-8")
+    # O alvo fica gravado para a proxima sessao repetir o mesmo escopo sem
+    # adivinhar. Vai relativo, nao absoluto: o arquivo e versionado, e caminho
+    # absoluto nele publicaria o nome de usuario e a pasta de quem gerou, alem
+    # de ficar errado em qualquer outra maquina.
+    ALVO_GRAVADO.write_text(
+        "# escopo do grafo, relativo a raiz do repositorio\n.\n", encoding="utf-8"
+    )
 
     # cache_root e a raiz do REPOSITORIO, nao a pasta escaneada, e vale para o
     # detect E para o extract. Passar outra coisa cria um segundo graphify-out

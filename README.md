@@ -9,24 +9,20 @@ Você não cria projeto no Google Cloud, não cria chave, não habilita faturame
 Escolhe a conta Google, clica em permitir, uma vez. Da segunda execução em
 diante roda sozinho no cron.
 
-## Começar
-
-Copie `backup-cpanel.sh` para o servidor e rode dois comandos.
+No servidor, para ligar o Google Drive (uma vez, só a primeira):
 
 ```bash
-chmod +x backup-cpanel.sh
-sudo ./backup-cpanel.sh --conectar
+chmod +x backup-cpanel.sh && sudo ./backup-cpanel.sh --conectar
 ```
 
-O primeiro liga o Google Drive. Ele te mostra duas formas de autorizar, você
-escolhe uma, e acaba.
+Depois disso, para fazer o backup:
 
 ```bash
 sudo ./backup-cpanel.sh
 ```
 
-O segundo faz o backup. Sem mais nada: as contas são descobertas, compactadas e
-enviadas.
+Sem mais nada. As contas são descobertas, compactadas e enviadas. Da segunda
+execução em diante roda sozinho no cron.
 
 Antes de rodar de verdade, dá para ver o que ele faria:
 
@@ -48,6 +44,55 @@ sudo ./backup-cpanel.sh --simular
   Destino no Drive: cpanel-drive:BACKUP-CPANEL
   Copia local depois do envio: apagada
 ```
+
+## Instalação
+
+**1. Copie o script para o servidor**
+
+```bash
+scp backup-cpanel.sh root@SEU_SERVIDOR:/root/
+```
+
+**2. Dê permissão de execução**
+
+Entre no servidor por SSH e rode:
+
+```bash
+chmod +x /root/backup-cpanel.sh
+```
+
+Sem isso o shell responde `Permission denied`, porque arquivo copiado por `scp`,
+baixado do navegador ou saído do Windows chega sem o bit de execução. Para
+conferir que pegou, o arquivo tem que aparecer com `x` na listagem:
+
+```bash
+ls -l /root/backup-cpanel.sh
+```
+
+Se não quiser mexer na permissão, dá para chamar o interpretador na mão, que
+funciona igual:
+
+```bash
+sudo bash /root/backup-cpanel.sh
+```
+
+**3. Rode como root**
+
+O script lê a pasta de cada conta em `/home`, que pertence a outro usuário, e
+grava em `/backup/cpanel`. Sem root não tem como funcionar, e ele recusa de
+saída em vez de gerar backup pela metade.
+
+```bash
+sudo /root/backup-cpanel.sh --conectar
+sudo /root/backup-cpanel.sh
+```
+
+**4. Precisa de alguma coisa instalada?**
+
+Só do `rclone`, e o próprio script instala se faltar: tenta o gerenciador de
+pacotes da distribuição primeiro e, se não achar lá, pede sua autorização para
+baixar o instalador oficial de `rclone.org`. O resto (`tar`, `gzip`, `awk`,
+`du`, `df`, `sha256sum`) já vem em qualquer servidor cPanel.
 
 ## Conectar o Google Drive
 

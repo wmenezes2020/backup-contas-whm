@@ -83,11 +83,12 @@ Esta skill complementa `landing-humana` (gente real, nada inventado) e
 
 ## Movimento: página parada não vende — REGRA DE OURO
 
-O dono do produto comparou a landing do Fonewhats com a de um concorrente e foi
-direto: *"página estática de mais não vende muito"*. Medi as duas antes de
-mexer, e o número dava razão a ele: a do concorrente tinha 297 elementos que
-revelam ao rolar e 30 animações contínuas. A nossa tinha **uma**, um ponto
-piscando, numa página que era ainda mais longa (19.513 px contra 11.675 px).
+Comparação medida entre uma landing de produto e a de um concorrente direto, as
+duas antes de qualquer mudança: a do concorrente tinha 297 elementos que revelam
+ao rolar e 30 animações contínuas. A outra tinha **uma**, um ponto piscando, numa
+página que era ainda mais longa (19.513 px contra 11.675 px). O veredito de quem
+olhou as duas lado a lado foi direto: *"página estática de mais não vende
+muito"*.
 
 Movimento entra junto com o texto, não depois. Landing sem ele parece
 documento, e documento não vende.
@@ -176,6 +177,7 @@ automático na página e quando rolar". Toda landing leva:
   `document.getAnimations()`. E conferir com o "menos movimento" também: tudo
   visível e parado.
 
-Referência pronta: Choveu Pedido, `landing-choveupedido/src/components/movimento.tsx`,
-`src/lib/movimento.ts` (testado em `scripts/testar-movimento.mjs`),
-`src/components/conversa.tsx` e `docs/SDD_LANDING_MOVIMENTO.md`.
+A implementação de referência se divide em quatro peças: um componente de
+revelação ao rolar, a função que decide se o movimento roda, fora do componente,
+para poder ser testada sozinha, um componente de demonstração viva, e o SDD que
+registra a decisão.
