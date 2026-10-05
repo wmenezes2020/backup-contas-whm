@@ -40,7 +40,7 @@ trabalho que não deveria existir aqui.
 | Histórico opcional | `--por-data` grava em `BACKUP-CPANEL/AAAA-MM-DD_HHMM/` | `--drive-manter N` guarda as N pastas de data mais novas |
 | Retenção que não erra o alvo | A remoção só alcança nome no formato de data que o script escreve | pasta criada a mão na mesma pasta do Drive sobrevive |
 | Autorização sem criar nada | Chave embutida no rclone, sem projeto no Google Cloud, sem faturamento | `--conectar` grava o remote sem `client_id` e o teste de conexão passa |
-| Dois caminhos de autorização | Colar o token, ou túnel SSH sem colar nada | `--drive-colar` e `--drive-tunel` levam ao mesmo remote funcionando |
+| Autorização em um link e uma colada | O script mostra o link, a pessoa autoriza e cola de volta o endereço em que o navegador caiu | nada para instalar na máquina de quem opera, e nenhum túnel |
 | Roda sozinho depois | Segunda execução sem terminal e sem interação | `-s` no cron entrega os arquivos |
 | Recusa honesta sem terminal | Primeira autorização exige gente | sem tty o script recusa com o comando a rodar na mão, sem travar esperando entrada |
 | Relatório honesto | Conta por conta: tamanho cru, comprimido, situação e tempo; mais avisos e falhas | `RELATORIO-<carimbo>.txt` local e no Drive, código de saída 2 quando houve falha |
@@ -136,7 +136,9 @@ sem usuário no sistema, uma com home em outra partição), mais `virtfs`,
 `mysql` e um `mysqldump` simulados. O `rclone` de mentira sabota de dois jeitos:
 entregando o arquivo cortado, e devolvendo hash errado com o tamanho certo.
 
-**Última execução: 18 casos, 87 verificações, 0 reprovadas.** `bash -n` limpo.
+**Última execução: 83 verificações na bateria do servidor simulado e 21 na da
+autorização do Drive (`scripts/testa-auth.sh`), 104 ao todo, 0 reprovadas.**
+`bash -n` limpo.
 
 Os casos, um por linha, estão na tabela da seção 7 de
 [`docs/SDD_BACKUP_CPANEL.md`](docs/SDD_BACKUP_CPANEL.md), junto com os cinco

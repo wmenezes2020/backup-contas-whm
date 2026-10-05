@@ -49,7 +49,6 @@ MARGEM_MB=200                # margem fixa, em MB
 ENVIAR=1
 SO_CONECTAR=0
 RECONECTAR=0
-CAMINHO_AUTORIZACAO=""       # colar | tunel | (vazio = pergunta)
 DRIVE_REMOTE="cpanel-drive"
 DRIVE_PASTA="BACKUP-CPANEL"
 DRIVE_ESCOPO="total"
@@ -117,10 +116,14 @@ USO
 
 PRIMEIRA VEZ
   sudo ./$NOME_SCRIPT --conectar
-                        Liga o Google Drive. Voce escolhe a conta Google e
-                        clica em permitir, uma vez. Nao precisa criar projeto
-                        no Google Cloud, nem chave, nem faturamento: a
-                        autorizacao usa a chave que ja vem no rclone.
+                        Liga o Google Drive, uma vez. O script mostra um link,
+                        voce abre no navegador, escolhe a conta Google, clica
+                        em Permitir, copia a URL em que o navegador caiu e cola
+                        de volta aqui. Acabou.
+                        Nao precisa criar projeto no Google Cloud, nem chave,
+                        nem faturamento, e nao precisa instalar nada na sua
+                        maquina: a autorizacao usa a chave que ja vem embutida
+                        no rclone.
                         Da segunda execucao em diante roda sozinho, no cron.
 
 OPCOES
@@ -161,8 +164,6 @@ GOOGLE DRIVE
                         e apagado.
       --conectar        Liga o Drive e sai, sem backup.
       --reconectar      Refaz a autorizacao mesmo se ja existir uma.
-      --drive-colar     Na autorizacao, usa o caminho de colar o token.
-      --drive-tunel     Na autorizacao, usa o caminho do tunel SSH.
       --drive-pasta P   Pasta no Drive. Padrao: $DRIVE_PASTA
       --drive-remote N  Nome do remote no rclone. Padrao: $DRIVE_REMOTE
       --drive-escopo E  'total' (padrao) ou 'arquivos'. Com 'arquivos' o
@@ -219,8 +220,6 @@ while (($#)); do
     --sem-drive)       ENVIAR=0; shift ;;
     --conectar|--drive-configurar) SO_CONECTAR=1; shift ;;
     --reconectar|--drive-reconfigurar) RECONECTAR=1; SO_CONECTAR=1; shift ;;
-    --drive-colar)     CAMINHO_AUTORIZACAO="colar"; shift ;;
-    --drive-tunel)     CAMINHO_AUTORIZACAO="tunel"; shift ;;
     --drive-pasta)     DRIVE_PASTA="${2:?pasta}"; shift 2 ;;
     --drive-remote)    DRIVE_REMOTE="${2:?nome}"; shift 2 ;;
     --drive-escopo)    DRIVE_ESCOPO="${2:?escopo}"; shift 2 ;;
@@ -440,156 +439,151 @@ escopo_conf() {
     *)        printf 'drive' ;;
   esac
 }
-
-# Tira o JSON do bloco que o rclone imprime, descartando as linhas de aviso que
-# vem antes e depois. Primeiro tenta o JSON sem chave dentro de chave, que e o
-# formato do token, e so depois cai no caminho largo.
-extrai_token() {
-  local texto t
-  texto="$(tr -d '\r\n')"
-  t="$(printf '%s' "$texto" | sed -n 's/.*\({[^{}]*access_token[^{}]*}\).*/\1/p' | head -1)"
-  [[ -n "$t" ]] || t="$(printf '%s' "$texto" | sed -n 's/.*\({.*}\).*/\1/p' | head -1)"
-  printf '%s' "$t"
-}
-
-# --- caminho 1: colar o token ---------------------------------------------
-le_token_colado() {
-  local linha acc=""
-  while IFS= read -r linha; do
-    acc="$acc$linha"
-    case "$acc" in *\{*\}*) break ;; esac
-    [[ -z "$linha" ]] && break
-  done < /dev/tty
-  printf '%s' "$acc" | extrai_token
-}
-
-autoriza_por_token_colado() {
-  local flag_escopo="" token
-  [[ "$DRIVE_ESCOPO" == "arquivos" ]] && flag_escopo=' --drive-scope drive.file'
-
-  {
-    printf '\n'
-    printf '  Voce vai rodar UM comando no SEU computador, onde existe navegador.\n'
-    printf '  O servidor nao tem navegador, por isso a autorizacao comeca ai.\n\n'
-    printf '  No Windows, no PowerShell ou no Prompt:\n\n'
-    printf '    rclone.exe authorize "drive"%s\n\n' "$flag_escopo"
-    printf '  No Mac ou Linux:\n\n'
-    printf '    rclone authorize "drive"%s\n\n' "$flag_escopo"
-    printf '  Nao tem o rclone no seu computador? Baixe o executavel em\n'
-    printf '  https://rclone.org/downloads e rode do proprio lugar onde ele caiu.\n'
-    printf '  Nao precisa instalar nada.\n\n'
-    printf '  O que vai acontecer:\n'
-    printf '    1. o navegador abre sozinho;\n'
-    printf '    2. voce escolhe a conta Google onde o backup vai ficar;\n'
-    printf '    3. clica em Permitir;\n'
-    printf '    4. o terminal do seu computador imprime um bloco assim:\n\n'
-    printf '         Paste the following into your remote machine --->\n'
-    printf '         {"access_token":"ya29...","refresh_token":"1//...", ...}\n'
-    printf '         <---End paste\n\n'
-    printf '  Copie a linha que comeca com { e cole aqui embaixo. Pode colar o\n'
-    printf '  bloco inteiro, que eu descarto o resto.\n\n'
-  } > /dev/tty
-
-  printf '  Cole o token e de enter: ' > /dev/tty
-  token="$(le_token_colado)"
-  valida_token "$token" || { aviso "o token e a linha que comeca com { e tem access_token dentro"; return 1; }
-  escreve_remote_rclone "$token" "$(escopo_conf)"
-  return 0
-}
-
-# --- caminho 2: tunel SSH --------------------------------------------------
-#
-# O rclone authorize roda AQUI, no servidor, e escuta em 127.0.0.1:53682. Com
-# um tunel SSH de pe, o navegador da maquina do operador alcanca essa porta, o
-# Google devolve o codigo direto para o rclone, e nao existe nada para colar.
-autoriza_por_tunel() {
-  local saida pid i link="" token="" st=0
-  declare -a flags=(authorize "drive")
-  [[ "$DRIVE_ESCOPO" == "arquivos" ]] && flags+=(--drive-scope drive.file)
-  # a flag existe desde o rclone 1.48; se faltar, o rclone apenas tenta abrir
-  # um navegador que nao existe aqui, e imprime o link do mesmo jeito
-  if rclone authorize --help 2>&1 | grep -q 'auth-no-open-browser'; then
-    flags+=(--auth-no-open-browser)
-  fi
-
-  saida="$TMP/authorize.txt"; : > "$saida"; chmod 600 "$saida"
-
-  {
-    printf '\n'
-    printf '  Deixe esta conexao de pe em OUTRO terminal do SEU computador,\n'
-    printf '  sem fechar, enquanto autoriza:\n\n'
-    printf '    ssh -N -L 53682:localhost:53682 %s@%s\n\n' "$(id -un)" "$(hostname -I 2>/dev/null | awk '{print $1}' || echo SEU_IP)"
-    printf '  Ela nao abre terminal nenhum, fica parada, e e isso mesmo: o que\n'
-    printf '  ela faz e ligar a porta 53682 do seu computador na deste servidor.\n\n'
-    printf '  Quando a conexao estiver de pe, de enter aqui.\n'
-  } > /dev/tty
-  le_do_tty "Enter para continuar" >/dev/null || true
-
-  rclone "${flags[@]}" > "$saida" 2>&1 &
-  pid=$!
-
-  # espera o link aparecer na saida do rclone
-  for ((i = 0; i < 90; i++)); do
-    link="$(grep -o 'http://\(127\.0\.0\.1\|localhost\):53682/auth?[^[:space:]"]*' "$saida" 2>/dev/null | head -1)" || link=""
-    [[ -n "$link" ]] && break
-    kill -0 "$pid" 2>/dev/null || break
-    sleep 1
-  done
-
-  if [[ -z "$link" ]]; then
-    kill "$pid" 2>/dev/null || true
-    wait "$pid" 2>/dev/null || true
-    falha "o rclone nao imprimiu o link de autorizacao"
-    aviso "veja $saida. Se a porta 53682 ja estiver em uso aqui, libere e tente de novo, ou use --drive-colar."
-    return 1
-  fi
-
-  {
-    printf '\n'
-    printf '  AGORA ABRA ESTE LINK NO NAVEGADOR DO SEU COMPUTADOR:\n\n'
-    printf '%s\n\n' "$link"
-    printf '  Escolha a conta Google onde o backup vai ficar e clique em Permitir.\n'
-    printf '  Quando a pagina disser que terminou, volte para ca. Eu sigo sozinho.\n\n'
-    printf '  Esperando a autorizacao (teto de 15 minutos)...\n'
-  } > /dev/tty
-
-  # espera o rclone receber o codigo, com teto
-  for ((i = 0; i < 900; i++)); do
-    kill -0 "$pid" 2>/dev/null || break
-    sleep 1
-  done
-  if kill -0 "$pid" 2>/dev/null; then
-    kill "$pid" 2>/dev/null || true
-    wait "$pid" 2>/dev/null || true
-    falha "passaram 15 minutos sem autorizacao"
-    return 1
-  fi
-  wait "$pid" 2>/dev/null || st=$?
-
-  token="$(extrai_token < "$saida")"
-  valida_token "$token" || { aviso "a saida completa do rclone esta em $saida"; return 1; }
-  escreve_remote_rclone "$token" "$(escopo_conf)"
-  return 0
-}
-
-escolhe_caminho_autorizacao() {
-  [[ -n "$CAMINHO_AUTORIZACAO" ]] && return 0
-  local r=""
-  {
-    printf '\n'
-    printf '  Como voce prefere autorizar?\n\n'
-    printf '    1) Rodar um comando no meu computador e colar o token aqui.\n'
-    printf '       Precisa do rclone na sua maquina (e um executavel solto, nao\n'
-    printf '       instala nada).\n\n'
-    printf '    2) Abrir um link pelo tunel SSH, sem colar nada.\n'
-    printf '       Nao precisa de rclone na sua maquina, mas precisa de uma\n'
-    printf '       conexao ssh -L de pe enquanto autoriza.\n\n'
-  } > /dev/tty
-  r="$(le_do_tty 'Escolha 1 ou 2 (padrao 1)')"
-  case "${r// /}" in
-    2) CAMINHO_AUTORIZACAO="tunel" ;;
-    *) CAMINHO_AUTORIZACAO="colar" ;;
+escopo_codificado() {
+  case "$DRIVE_ESCOPO" in
+    arquivos) printf 'https%%3A%%2F%%2Fwww.googleapis.com%%2Fauth%%2Fdrive.file' ;;
+    *)        printf 'https%%3A%%2F%%2Fwww.googleapis.com%%2Fauth%%2Fdrive' ;;
   esac
+}
+
+# pega o valor de uma chave de texto no JSON, sem depender de jq
+valor_json() {
+  printf '%s' "$1" | tr -d '\n\r' \
+    | sed -n "s/.*\"$2\"[[:space:]]*:[[:space:]]*\"\([^\"]*\)\".*/\1/p" | head -1
+}
+numero_json() {
+  printf '%s' "$1" | tr -d '\n\r' \
+    | sed -n "s/.*\"$2\"[[:space:]]*:[[:space:]]*\([0-9]\{1,\}\).*/\1/p" | head -1
+}
+
+# ---------------------------------------------------------------------------
+# Autorizacao: um link, e a URL de volta. So isso.
+#
+# O script monta o link, voce abre no navegador do seu computador, escolhe a
+# conta Google e clica em Permitir. O Google devolve o navegador para
+# 127.0.0.1:53682, que nao tem ninguem escutando, entao a pagina da erro. Isso e
+# o esperado: o que importa esta na barra de endereco. Voce copia a URL inteira,
+# cola aqui, e o script troca o codigo dela por um token.
+#
+# A chave usada e a que ja vem embutida no proprio rclone, publicada no codigo
+# dele. Credencial de aplicativo instalado nao e confidencial por desenho, e e
+# por usar essa que nao existe projeto no Google Cloud para criar, nem
+# faturamento, nem tela de verificacao. O token gravado sai sem client_id e sem
+# client_secret, para o rclone renovar o acesso com a chave dele mesmo.
+# ---------------------------------------------------------------------------
+CLIENTE_RCLONE="202264815644.apps.googleusercontent.com"
+SEGREDO_RCLONE="X4Z3ca8xfWDb1Voo-F9a7ZxJ"
+REDIRECIONAMENTO="http://127.0.0.1:53682/"
+REDIRECIONAMENTO_CODIFICADO="http%3A%2F%2F127.0.0.1%3A53682%2F"
+
+autoriza_por_link() {
+  local id="$CLIENTE_RCLONE" segredo="$SEGREDO_RCLONE"
+
+  # PKCE quando houver openssl. Protege a troca do codigo pelo token.
+  local verificador="" desafio="" parte_pkce=""
+  if tem openssl; then
+    verificador="$(openssl rand -base64 48 2>/dev/null | tr -d '\n\r=' | tr '+/' '-_')"
+    desafio="$(printf '%s' "$verificador" | openssl dgst -binary -sha256 2>/dev/null \
+               | openssl base64 2>/dev/null | tr -d '\n\r=' | tr '+/' '-_')"
+    if [[ -n "$verificador" && -n "$desafio" ]]; then
+      parte_pkce="&code_challenge=$desafio&code_challenge_method=S256"
+    else
+      verificador=""
+    fi
+  fi
+
+  local url
+  url="https://accounts.google.com/o/oauth2/v2/auth?client_id=${id}"
+  url="${url}&redirect_uri=${REDIRECIONAMENTO_CODIFICADO}&response_type=code"
+  url="${url}&scope=$(escopo_codificado)&access_type=offline&prompt=consent${parte_pkce}"
+
+  {
+    printf '\n'
+    printf '  ABRA ESTE LINK NO NAVEGADOR DO SEU COMPUTADOR:\n\n'
+    printf '%s\n\n' "$url"
+    printf '  1. escolha a conta Google onde o backup vai ficar;\n'
+    printf '  2. se aparecer aviso de aplicativo nao verificado, clique em\n'
+    printf '     Avancado e depois em Acessar;\n'
+    printf '  3. clique em Permitir;\n'
+    printf '  4. a pagina seguinte vai dizer que nao conseguiu acessar\n'
+    printf '     127.0.0.1. E isso mesmo, nao deu errado: o endereco dela E a\n'
+    printf '     sua resposta. Copie a barra de endereco INTEIRA e cole aqui.\n\n'
+    printf '  A URL comeca com %s e tem code= no meio.\n\n' "$REDIRECIONAMENTO"
+  } > /dev/tty
+
+  local colado codigo
+  colado="$(le_do_tty 'Cole a URL completa')"
+  codigo="$(printf '%s' "$colado" | sed -n 's/.*[?&]code=\([^&]*\).*/\1/p' | head -1)"
+  [[ -n "$codigo" ]] || codigo="$(printf '%s' "$colado" | tr -d '[:space:]')"
+  if [[ -z "$codigo" ]]; then
+    falha "nao achei o code= no que voce colou"
+    aviso "cole a URL inteira da barra de endereco, a que comeca com $REDIRECIONAMENTO"
+    return 1
+  fi
+  case "$colado" in
+    *error=access_denied*) falha "a autorizacao foi recusada na tela do Google"; return 1 ;;
+    *error=*)              falha "o Google devolveu um erro na URL: ${colado#*error=}"; return 1 ;;
+  esac
+  codigo="$(printf '%s' "$codigo" | sed 's/%2F/\//g; s/%2f/\//g')"
+
+  # troca o codigo pelo token. Tudo por arquivo, para o segredo e o token nao
+  # aparecerem na linha de comando do servidor.
+  diz "trocando o codigo por um token"
+  local d resposta acesso atualizacao segundos expiracao erro
+  d="$(mktemp -d)"; chmod 700 "$d"
+  umask 077
+  printf '%s' "$codigo"           > "$d/code"
+  printf '%s' "$id"               > "$d/id"
+  printf '%s' "$segredo"          > "$d/secret"
+  printf '%s' "$REDIRECIONAMENTO" > "$d/redirect"
+  [[ -n "$verificador" ]] && printf '%s' "$verificador" > "$d/verifier"
+
+  declare -a extra=()
+  [[ -n "$verificador" ]] && extra=(--data-urlencode "code_verifier@$d/verifier")
+
+  resposta="$(curl -fsS --max-time 60 https://oauth2.googleapis.com/token \
+    --data-urlencode "code@$d/code" \
+    --data-urlencode "client_id@$d/id" \
+    --data-urlencode "client_secret@$d/secret" \
+    --data-urlencode "redirect_uri@$d/redirect" \
+    ${extra[@]+"${extra[@]}"} \
+    -d grant_type=authorization_code 2>>"$LOG")" || resposta=""
+  rm -rf "$d"
+
+  if [[ -z "$resposta" ]]; then
+    falha "o Google nao aceitou a troca do codigo pelo token"
+    aviso "o codigo vale poucos minutos. Rode --conectar de novo e cole a URL logo depois de autorizar."
+    return 1
+  fi
+
+  erro="$(valor_json "$resposta" error)"
+  if [[ -n "$erro" ]]; then
+    falha "o Google recusou: $erro"
+    [[ "$erro" == "invalid_grant" ]] && aviso "o codigo ja foi usado ou venceu. Autorize de novo e cole a URL na hora."
+    return 1
+  fi
+
+  acesso="$(valor_json "$resposta" access_token)"
+  atualizacao="$(valor_json "$resposta" refresh_token)"
+  segundos="$(numero_json "$resposta" expires_in)"
+  [[ -n "$segundos" ]] || segundos=3600
+
+  if [[ -z "$acesso" ]]; then
+    falha "a resposta do Google nao trouxe access_token"
+    return 1
+  fi
+  if [[ -z "$atualizacao" ]]; then
+    falha "a resposta do Google nao trouxe refresh_token, entao o envio pararia de funcionar em uma hora"
+    aviso "isso acontece quando esta conta ja autorizou antes. Remova o acesso em myaccount.google.com/permissions e autorize de novo."
+    return 1
+  fi
+
+  expiracao="$(date -u -d "+${segundos} seconds" '+%Y-%m-%dT%H:%M:%S.000000000Z' 2>/dev/null)" \
+    || expiracao="$(date -u '+%Y-%m-%dT%H:%M:%S.000000000Z')"
+
+  escreve_remote_rclone \
+    "{\"access_token\":\"$acesso\",\"token_type\":\"Bearer\",\"refresh_token\":\"$atualizacao\",\"expiry\":\"$expiracao\"}" \
+    "$(escopo_conf)"
   return 0
 }
 
@@ -611,12 +605,9 @@ configura_drive() {
     aviso "rode uma vez na mao: sudo ./$NOME_SCRIPT --conectar. Depois disso o backup roda sozinho no cron."
     return 1
   fi
+  tem curl || { falha "preciso do curl para trocar o codigo pelo token"; return 1; }
 
-  escolhe_caminho_autorizacao
-  case "$CAMINHO_AUTORIZACAO" in
-    tunel) autoriza_por_tunel || return 1 ;;
-    *)     autoriza_por_token_colado || return 1 ;;
-  esac
+  autoriza_por_link || return 1
 
   diz "testando a conexao"
   if testa_remote; then
@@ -624,7 +615,6 @@ configura_drive() {
     return 0
   fi
   falha "o remote foi gravado mas o Drive nao respondeu (veja $LOG)"
-  aviso "se o token foi gerado com --drive-scope drive.file, use tambem --drive-escopo arquivos aqui"
   return 1
 }
 

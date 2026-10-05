@@ -96,34 +96,40 @@ baixar o instalador oficial de `rclone.org`. O resto (`tar`, `gzip`, `awk`,
 
 ## Conectar o Google Drive
 
-`--conectar` pergunta como você prefere. As duas formas usam a chave que já vem
-embutida no rclone, então em nenhuma delas você cria coisa alguma no Google.
+Um link e uma colada. Nada para instalar na sua máquina, nada para criar no
+Google.
 
-**Caminho 1, colar o token.** Você roda um comando no seu computador, autoriza
-no navegador, e cola de volta a linha que o rclone imprime.
+1. O script imprime um link. Você copia e abre no navegador do seu computador.
+2. Escolhe a conta Google onde o backup vai ficar e clica em **Permitir**.
+3. A página seguinte vai dizer que não conseguiu acessar `127.0.0.1`. É isso
+   mesmo, não deu errado: **o endereço dela é a sua resposta.**
+4. Você copia a barra de endereço inteira e cola no terminal. Acabou.
 
-```powershell
-rclone.exe authorize "drive"
-```
+O script tira o código daquela URL, troca por um token no Google e grava em
+`/root/.config/rclone/rclone.conf` com permissão 600. Dali em diante o rclone
+renova o acesso sozinho, e o backup roda no cron sem ninguém por perto.
 
-Não tem rclone na sua máquina? Baixe o executável em
-[rclone.org/downloads](https://rclone.org/downloads) e rode do próprio lugar
-onde ele caiu. Não instala nada.
+Se preferir, dá para colar só o pedaço depois de `code=`. O script aceita os
+dois.
 
-**Caminho 2, túnel SSH.** Não precisa de rclone na sua máquina. Você deixa uma
-conexão de pé em outro terminal, o script te dá um link, você abre esse link no
-seu navegador e clica em permitir. Nada para copiar e colar.
+### Por que a página dá erro, e por que não dá para ser diferente
 
-```bash
-ssh -N -L 53682:localhost:53682 root@SEU_SERVIDOR
-```
+O OAuth do Google exige um endereço de retorno em todo pedido de autorização.
+Como o servidor não tem navegador, esse endereço aponta para `127.0.0.1`, que é
+a sua própria máquina, onde não há nada escutando. Daí a página de erro. O
+código que importa já veio junto, no endereço.
 
-Essa conexão fica parada, sem abrir terminal. É isso mesmo: o que ela faz é
-ligar a porta 53682 da sua máquina na do servidor, para o navegador conseguir
-devolver o código ao script.
+As duas alternativas que mostrariam o código na tela não existem mais:
 
-Nos dois casos o token fica em `/root/.config/rclone/rclone.conf` com permissão
-600, e o rclone renova o acesso sozinho dali em diante.
+- o modo em que o Google exibia o código com um botão de copiar foi desligado
+  por ele em 2022, e hoje responde `Error 400: invalid_request`;
+- o modo de aparelho sem teclado, em que você digitaria um código curto em
+  `google.com/device`, não aceita o escopo do Drive.
+
+A chave usada é a que já vem embutida no rclone, publicada no código dele.
+Credencial de aplicativo instalado não é confidencial por desenho, e é por usar
+essa que não existe projeto no Google Cloud para criar, nem faturamento, nem
+tela de verificação.
 
 ## O que entra e o que não entra
 
@@ -226,8 +232,6 @@ todo dia.
 |---|---|
 | `--conectar` | Liga o Drive e sai, sem backup |
 | `--reconectar` | Refaz a autorização mesmo se já existir uma |
-| `--drive-colar` | Autoriza pelo caminho de colar o token, sem perguntar |
-| `--drive-tunel` | Autoriza pelo caminho do túnel SSH, sem perguntar |
 | `--sem-drive` | Só gera os arquivos aqui. Nesse caso nada é apagado |
 | `--drive-pasta P` | Pasta no Drive. Padrão `BACKUP-CPANEL` |
 | `--drive-remote N` | Nome do remote no rclone. Padrão `cpanel-drive` |

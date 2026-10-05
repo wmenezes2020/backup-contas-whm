@@ -3,6 +3,9 @@
 .lab/
 .lab.velho.*/
 
+# Pasta de trabalho do teste de autorização (scripts/testa-auth.sh).
+.auth-lab/
+
 # Pacote de conta gerado em teste a mão. Nunca versionar: tem dado de cliente.
 *.tar.gz
 *.tar.gz.gpg

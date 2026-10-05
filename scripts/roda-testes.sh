@@ -255,7 +255,7 @@ contem "$SAIDA" "--conectar" && ok "ensina o comando a rodar na mao" || nok "T15
 [[ -z "$(ls -A "$DRIVE" 2>/dev/null)" ]] && ok "nao gerou nem enviou nada" || nok "T15 gerou"
 
 # ===========================================================================
-caso "T16 leitura do token e escrita do rclone.conf"
+caso "T16 escrita do rclone.conf"
 # so as definicoes do script, sem o corpo que executa
 awk '/^if \(\(SO_CONECTAR\)\); then$/{exit} {print}' "$S" > "$LAB/so-funcoes.sh"
 cat > "$LAB/teste-token.sh" <<'TT'
@@ -270,25 +270,9 @@ LOG="$TMP/log"; : > "$LOG"
 CARIMBO="teste"
 r=0
 
-# 1. bloco inteiro que o rclone imprime
-bloco='Paste the following into your remote machine --->
-{"access_token":"ya29.AAA","token_type":"Bearer","refresh_token":"1//BBB","expiry":"2026-10-05T12:00:00.000000000Z"}
-<---End paste'
-t="$(printf '%s' "$bloco" | extrai_token)"
-[[ "$t" == '{"access_token":"ya29.AAA","token_type":"Bearer","refresh_token":"1//BBB","expiry":"2026-10-05T12:00:00.000000000Z"}' ]] \
-  && echo "OK bloco inteiro" || { echo "FAIL bloco inteiro: [$t]"; r=1; }
-
-# 2. so a linha do JSON, com espacos em volta
-t="$(printf '   {"access_token":"a","refresh_token":"b"}   \n' | extrai_token)"
-[[ "$t" == '{"access_token":"a","refresh_token":"b"}' ]] && echo "OK so o json" || { echo "FAIL so o json: [$t]"; r=1; }
-
-# 3. token sem refresh_token tem que ser recusado
-if valida_token '{"access_token":"a"}' >/dev/null 2>&1; then echo "FAIL aceitou sem refresh_token"; r=1
-else echo "OK recusa token sem refresh_token"; fi
-
-# 4. texto sem token nenhum
-if valida_token "$(printf 'erro: nada aqui' | extrai_token)" >/dev/null 2>&1; then echo "FAIL aceitou lixo"; r=1
-else echo "OK recusa texto sem token"; fi
+# A leitura da URL colada e o caminho inteiro da autorizacao estao em
+# scripts/testa-auth.sh. Aqui fica so o que ele nao cobre: o rclone.conf
+# convivendo com outros remotes.
 
 # 5. escrita do rclone.conf preservando outro remote
 conf="$LAB/rclone.conf"

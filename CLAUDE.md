@@ -77,6 +77,24 @@ Assim o rclone usa a chave embutida nele, inclusive para renovar o acesso.
 Gravar campo vazio faz a renovação falhar na semana seguinte, e aí o backup para
 sozinho sem ninguém perceber.
 
+**Não existe autorização do Google sem `redirect_uri`, e as duas saídas que
+pareceriam mais simples estão mortas.** Foram medidas contra a API, não
+supostas:
+
+| Tentativa | Resposta do Google |
+|---|---|
+| `urn:ietf:wg:oauth:2.0:oob`, que mostrava o código na tela com botão de copiar | `Error 400: invalid_request`, "not supported". Desligado em 2022, para toda chave |
+| Fluxo de dispositivo (RFC 8628), código curto em `google.com/device` | `invalid_client`, "Invalid client type". A chave do rclone é de aplicativo de computador, e o escopo do Drive não entra nesse fluxo |
+
+Então o loopback em `127.0.0.1:53682` não é escolha de design: é o que sobrou.
+A página de erro no navegador faz parte do procedimento, e o texto na tela diz
+isso antes de a pessoa clicar, como passo 4, não como aviso de problema. Antes
+de propor "simplificar" isso de novo, repita as duas medições.
+
+**O `redirect_uri` é exatamente `http://127.0.0.1:53682/`, com barra.** É o que o
+rclone registra. O Google tolera variações de loopback hoje, mas depender de
+tolerância é apostar.
+
 **Pasta em `/home` não é conta.** A fonte da verdade é `/var/cpanel/users/<user>`
 mais o diretório que está no `/etc/passwd`. `virtfs` é o que mais dói:
 compactar aquilo arrasta bind mounts do sistema inteiro.

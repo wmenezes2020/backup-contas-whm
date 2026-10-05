@@ -8,7 +8,7 @@
       "label": "dentro_do_escopo()",
       "_callable": true,
       "_origin": "ast",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "file_type": "code",
       "norm_label": "dentro_do_escopo()",
@@ -20,7 +20,7 @@
       "label": "main()",
       "_callable": true,
       "_origin": "ast",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "file_type": "code",
       "norm_label": "main()",
@@ -28,10 +28,355 @@
       "source_location": "L36"
     },
     {
+      "id": "backup_cpanel_ajuda",
+      "label": "ajuda()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "ajuda()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L106"
+    },
+    {
+      "id": "backup_cpanel_aviso",
+      "label": "aviso()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "aviso()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L100"
+    },
+    {
+      "id": "backup_cpanel_cifra_arquivo",
+      "label": "cifra_arquivo()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "cifra_arquivo()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L926"
+    },
+    {
+      "id": "backup_cpanel_compacta_conta",
+      "label": "compacta_conta()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "compacta_conta()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L892"
+    },
+    {
+      "id": "backup_cpanel_confere_arquivo",
+      "label": "confere_arquivo()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "confere_arquivo()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L921"
+    },
+    {
+      "id": "backup_cpanel_configura_drive",
+      "label": "configura_drive()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "configura_drive()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L590"
+    },
+    {
+      "id": "backup_cpanel_diz",
+      "label": "diz()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "diz()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L97"
+    },
+    {
+      "id": "backup_cpanel_dump_bancos",
+      "label": "dump_bancos()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "dump_bancos()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L966"
+    },
+    {
+      "id": "backup_cpanel_espaco_livre",
+      "label": "espaco_livre()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "espaco_livre()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L280"
+    },
+    {
+      "id": "backup_cpanel_falha",
+      "label": "falha()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "falha()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L101"
+    },
+    {
+      "id": "backup_cpanel_feito",
+      "label": "feito()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "feito()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L99"
+    },
+    {
+      "id": "backup_cpanel_instala_rclone",
+      "label": "instala_rclone()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "instala_rclone()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L346"
+    },
+    {
+      "id": "backup_cpanel_monta_exclusoes",
+      "label": "monta_exclusoes()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "monta_exclusoes()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L847"
+    },
+    {
+      "id": "backup_cpanel_monta_raizes",
+      "label": "monta_raizes()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "monta_raizes()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L717"
+    },
+    {
+      "id": "backup_cpanel_morre",
+      "label": "morre()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "morre()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L102"
+    },
+    {
+      "id": "backup_cpanel_passo",
+      "label": "passo()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "passo()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L98"
+    },
+    {
+      "id": "backup_cpanel_remote_ja_existe",
+      "label": "remote_ja_existe()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "remote_ja_existe()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L382"
+    },
+    {
+      "id": "backup_cpanel_retencao_drive",
+      "label": "retencao_drive()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "retencao_drive()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L677"
+    },
+    {
+      "id": "backup_cpanel_sh__entry",
+      "label": "backup-cpanel.sh script",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "norm_label": "backup-cpanel.sh script",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L1"
+    },
+    {
+      "id": "backup_cpanel_tamanho_de",
+      "label": "tamanho_de()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tamanho_de()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L269"
+    },
+    {
+      "id": "backup_cpanel_tem",
+      "label": "tem()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tem()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L251"
+    },
+    {
+      "id": "backup_cpanel_testa_remote",
+      "label": "testa_remote()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "testa_remote()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L386"
+    },
+    {
+      "id": "backup_cpanel_valida_token",
+      "label": "valida_token()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "backup-cpanel.sh script",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "valida_token()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L422"
+    },
+    {
       "id": "backup_cpanel",
       "label": "backup-cpanel.sh",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -46,7 +391,7 @@
       "id": "backup_cpanel_agora",
       "label": "agora()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -55,13 +400,13 @@
       },
       "norm_label": "agora()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L97"
+      "source_location": "L96"
     },
     {
       "id": "backup_cpanel_avisos",
       "label": "AVISOS",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -70,13 +415,13 @@
       },
       "norm_label": "avisos",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L75"
+      "source_location": "L74"
     },
     {
       "id": "backup_cpanel_bancos_da_conta",
       "label": "bancos_da_conta()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -85,13 +430,13 @@
       },
       "norm_label": "bancos_da_conta()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L966"
+      "source_location": "L956"
     },
     {
       "id": "backup_cpanel_conta_linhas",
       "label": "conta_linhas()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -100,13 +445,13 @@
       },
       "norm_label": "conta_linhas()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L254"
+      "source_location": "L253"
     },
     {
       "id": "backup_cpanel_contas",
       "label": "CONTAS",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -115,13 +460,13 @@
       },
       "norm_label": "contas",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L73"
+      "source_location": "L72"
     },
     {
       "id": "backup_cpanel_cor",
       "label": "cor()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -130,13 +475,13 @@
       },
       "norm_label": "cor()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L96"
+      "source_location": "L95"
     },
     {
       "id": "backup_cpanel_dominio_de",
       "label": "DOMINIO_DE",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -145,13 +490,13 @@
       },
       "norm_label": "dominio_de",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L79"
+      "source_location": "L78"
     },
     {
       "id": "backup_cpanel_dono_de",
       "label": "DONO_DE",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -160,13 +505,13 @@
       },
       "norm_label": "dono_de",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L80"
+      "source_location": "L79"
     },
     {
       "id": "backup_cpanel_erros",
       "label": "ERROS",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -175,13 +520,13 @@
       },
       "norm_label": "erros",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L76"
+      "source_location": "L75"
     },
     {
       "id": "backup_cpanel_escopo_conf",
       "label": "escopo_conf()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -190,13 +535,13 @@
       },
       "norm_label": "escopo_conf()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L437"
+      "source_location": "L436"
     },
     {
       "id": "backup_cpanel_flags_tar",
       "label": "FLAGS_TAR",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -205,13 +550,13 @@
       },
       "norm_label": "flags_tar",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L77"
+      "source_location": "L76"
     },
     {
       "id": "backup_cpanel_home_de",
       "label": "HOME_DE",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -220,13 +565,13 @@
       },
       "norm_label": "home_de",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L78"
+      "source_location": "L77"
     },
     {
       "id": "backup_cpanel_legivel",
       "label": "legivel()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -235,13 +580,13 @@
       },
       "norm_label": "legivel()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L259"
+      "source_location": "L258"
     },
     {
       "id": "backup_cpanel_linhas_relatorio",
       "label": "LINHAS_RELATORIO",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -250,13 +595,13 @@
       },
       "norm_label": "linhas_relatorio",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L83"
+      "source_location": "L82"
     },
     {
       "id": "backup_cpanel_na_saida",
       "label": "na_saida()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -265,13 +610,13 @@
       },
       "norm_label": "na_saida()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L332"
+      "source_location": "L331"
     },
     {
       "id": "backup_cpanel_opcoes_rclone",
       "label": "opcoes_rclone()",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -280,13 +625,13 @@
       },
       "norm_label": "opcoes_rclone()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L631"
+      "source_location": "L621"
     },
     {
       "id": "backup_cpanel_orfas",
       "label": "ORFAS",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -295,13 +640,13 @@
       },
       "norm_label": "orfas",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L74"
+      "source_location": "L73"
     },
     {
       "id": "backup_cpanel_plano_de",
       "label": "PLANO_DE",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -310,13 +655,13 @@
       },
       "norm_label": "plano_de",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L81"
+      "source_location": "L80"
     },
     {
       "id": "backup_cpanel_raizes",
       "label": "RAIZES",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -325,13 +670,13 @@
       },
       "norm_label": "raizes",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L72"
+      "source_location": "L71"
     },
     {
       "id": "backup_cpanel_raizes_pedidas",
       "label": "RAIZES_PEDIDAS",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -346,7 +691,7 @@
       "id": "backup_cpanel_suspensa",
       "label": "SUSPENSA",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "community_name": "backup-cpanel.sh",
       "file_type": "code",
       "metadata": {
@@ -355,448 +700,13 @@
       },
       "norm_label": "suspensa",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L82"
-    },
-    {
-      "id": "backup_cpanel_autoriza_por_token_colado",
-      "label": "autoriza_por_token_colado()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "autoriza_por_token_colado()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L466"
-    },
-    {
-      "id": "backup_cpanel_autoriza_por_tunel",
-      "label": "autoriza_por_tunel()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "autoriza_por_tunel()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L505"
-    },
-    {
-      "id": "backup_cpanel_aviso",
-      "label": "aviso()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "aviso()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L101"
-    },
-    {
-      "id": "backup_cpanel_configura_drive",
-      "label": "configura_drive()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "configura_drive()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L596"
-    },
-    {
-      "id": "backup_cpanel_diz",
-      "label": "diz()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "diz()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L98"
-    },
-    {
-      "id": "backup_cpanel_dump_bancos",
-      "label": "dump_bancos()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "dump_bancos()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L976"
-    },
-    {
-      "id": "backup_cpanel_escreve_remote_rclone",
-      "label": "escreve_remote_rclone()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "escreve_remote_rclone()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L392"
-    },
-    {
-      "id": "backup_cpanel_extrai_token",
-      "label": "extrai_token()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "extrai_token()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L447"
-    },
-    {
-      "id": "backup_cpanel_falha",
-      "label": "falha()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "falha()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L102"
-    },
-    {
-      "id": "backup_cpanel_feito",
-      "label": "feito()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "feito()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L100"
-    },
-    {
-      "id": "backup_cpanel_instala_rclone",
-      "label": "instala_rclone()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "instala_rclone()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L347"
-    },
-    {
-      "id": "backup_cpanel_le_token_colado",
-      "label": "le_token_colado()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "le_token_colado()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L456"
-    },
-    {
-      "id": "backup_cpanel_passo",
-      "label": "passo()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "passo()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L99"
-    },
-    {
-      "id": "backup_cpanel_retencao_drive",
-      "label": "retencao_drive()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "retencao_drive()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L687"
-    },
-    {
-      "id": "backup_cpanel_valida_token",
-      "label": "valida_token()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "configura_drive",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "valida_token()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L423"
-    },
-    {
-      "id": "backup_cpanel_ajuda",
-      "label": "ajuda()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "ajuda()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L107"
-    },
-    {
-      "id": "backup_cpanel_arquivo_conf_rclone",
-      "label": "arquivo_conf_rclone()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "arquivo_conf_rclone()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L376"
-    },
-    {
-      "id": "backup_cpanel_cifra_arquivo",
-      "label": "cifra_arquivo()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "cifra_arquivo()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L936"
-    },
-    {
-      "id": "backup_cpanel_confere_arquivo",
-      "label": "confere_arquivo()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "confere_arquivo()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L931"
-    },
-    {
-      "id": "backup_cpanel_envia_arquivo",
-      "label": "envia_arquivo()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "envia_arquivo()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L650"
-    },
-    {
-      "id": "backup_cpanel_espaco_livre",
-      "label": "espaco_livre()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "espaco_livre()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L281"
-    },
-    {
-      "id": "backup_cpanel_monta_raizes",
-      "label": "monta_raizes()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "monta_raizes()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L727"
-    },
-    {
-      "id": "backup_cpanel_morre",
-      "label": "morre()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "morre()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L103"
-    },
-    {
-      "id": "backup_cpanel_remote_ja_existe",
-      "label": "remote_ja_existe()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "remote_ja_existe()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L383"
-    },
-    {
-      "id": "backup_cpanel_sh__entry",
-      "label": "backup-cpanel.sh script",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "norm_label": "backup-cpanel.sh script",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L1"
-    },
-    {
-      "id": "backup_cpanel_tamanho_arquivo",
-      "label": "tamanho_arquivo()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tamanho_arquivo()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L288"
-    },
-    {
-      "id": "backup_cpanel_tamanho_de",
-      "label": "tamanho_de()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tamanho_de()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L270"
-    },
-    {
-      "id": "backup_cpanel_tem",
-      "label": "tem()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tem()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L252"
-    },
-    {
-      "id": "backup_cpanel_testa_remote",
-      "label": "testa_remote()",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "backup-cpanel.sh script",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "testa_remote()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L387"
+      "source_location": "L81"
     },
     {
       "id": "scripts_roda_testes",
       "label": "roda-testes.sh",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -811,7 +721,7 @@
       "id": "scripts_roda_testes_caso",
       "label": "caso()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -826,7 +736,7 @@
       "id": "scripts_roda_testes_conecta",
       "label": "conecta()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -841,7 +751,7 @@
       "id": "scripts_roda_testes_contem",
       "label": "contem()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -856,7 +766,7 @@
       "id": "scripts_roda_testes_desconecta",
       "label": "desconecta()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -871,7 +781,7 @@
       "id": "scripts_roda_testes_falhas",
       "label": "FALHAS",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -886,7 +796,7 @@
       "id": "scripts_roda_testes_limpa",
       "label": "limpa()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -901,7 +811,7 @@
       "id": "scripts_roda_testes_nao_contem",
       "label": "nao_contem()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -916,7 +826,7 @@
       "id": "scripts_roda_testes_nok",
       "label": "nok()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -931,7 +841,7 @@
       "id": "scripts_roda_testes_ok",
       "label": "ok()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -946,7 +856,7 @@
       "id": "scripts_roda_testes_path",
       "label": "PATH",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -961,7 +871,7 @@
       "id": "scripts_roda_testes_roda",
       "label": "roda()",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -976,7 +886,7 @@
       "id": "scripts_roda_testes_sh__entry",
       "label": "roda-testes.sh script",
       "_origin": "ast",
-      "community": 3,
+      "community": 2,
       "community_name": "roda-testes.sh",
       "file_type": "code",
       "metadata": {
@@ -988,10 +898,310 @@
       "source_location": "L1"
     },
     {
+      "id": "scripts_testa_auth",
+      "label": "testa-auth.sh",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "norm_label": "testa-auth.sh",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_testa_auth_arquivo_conf_rclone",
+      "label": "arquivo_conf_rclone()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "arquivo_conf_rclone()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L67"
+    },
+    {
+      "id": "scripts_testa_auth_caso",
+      "label": "caso()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "caso()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L38"
+    },
+    {
+      "id": "scripts_testa_auth_curl",
+      "label": "curl()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "curl()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L66"
+    },
+    {
+      "id": "scripts_testa_auth_le_do_tty",
+      "label": "le_do_tty()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "le_do_tty()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L64"
+    },
+    {
+      "id": "scripts_testa_auth_nao_tem_texto",
+      "label": "nao_tem_texto()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "nao_tem_texto()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L76"
+    },
+    {
+      "id": "scripts_testa_auth_nok",
+      "label": "nok()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "nok()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L37"
+    },
+    {
+      "id": "scripts_testa_auth_ok",
+      "label": "ok()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "ok()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L36"
+    },
+    {
+      "id": "scripts_testa_auth_prepara",
+      "label": "prepara()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "prepara()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L40"
+    },
+    {
+      "id": "scripts_testa_auth_roda_auth",
+      "label": "roda_auth()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "roda_auth()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L51"
+    },
+    {
+      "id": "scripts_testa_auth_sh__entry",
+      "label": "testa-auth.sh script",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "norm_label": "testa-auth.sh script",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_testa_auth_tem_terminal",
+      "label": "tem_terminal()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tem_terminal()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L65"
+    },
+    {
+      "id": "scripts_testa_auth_tem_texto",
+      "label": "tem_texto()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "testa-auth.sh",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tem_texto()",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L75"
+    },
+    {
+      "id": "backup_cpanel_autoriza_por_link",
+      "label": "autoriza_por_link()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "autoriza_por_link()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L479"
+    },
+    {
+      "id": "backup_cpanel_escopo_codificado",
+      "label": "escopo_codificado()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "escopo_codificado()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L442"
+    },
+    {
+      "id": "backup_cpanel_le_do_tty",
+      "label": "le_do_tty()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "le_do_tty()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L306"
+    },
+    {
+      "id": "backup_cpanel_numero_json",
+      "label": "numero_json()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "numero_json()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L454"
+    },
+    {
+      "id": "backup_cpanel_pergunta_sim",
+      "label": "pergunta_sim()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "pergunta_sim()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L297"
+    },
+    {
+      "id": "backup_cpanel_tem_terminal",
+      "label": "tem_terminal()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tem_terminal()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L295"
+    },
+    {
+      "id": "backup_cpanel_valor_json",
+      "label": "valor_json()",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "autoriza_por_link",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "valor_json()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L450"
+    },
+    {
       "id": "scripts_gerar_grafo",
       "label": "gerar-grafo.py",
       "_origin": "ast",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "file_type": "code",
       "norm_label": "gerar-grafo.py",
@@ -1002,7 +1212,7 @@
       "id": "scripts_gerar_grafo_rationale_2",
       "label": "Gera o grafo do graphify deste repositorio em graphify-out/. Entrega sempre os\u2026",
       "_origin": "ast",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "file_type": "rationale",
       "norm_label": "gera o grafo do graphify deste repositorio em graphify-out/. entrega sempre os...",
@@ -1010,10 +1220,70 @@
       "source_location": "L2"
     },
     {
+      "id": "backup_cpanel_arquivo_conf_rclone",
+      "label": "arquivo_conf_rclone()",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "envia_arquivo",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "arquivo_conf_rclone()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L375"
+    },
+    {
+      "id": "backup_cpanel_envia_arquivo",
+      "label": "envia_arquivo()",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "envia_arquivo",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "envia_arquivo()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L640"
+    },
+    {
+      "id": "backup_cpanel_escreve_remote_rclone",
+      "label": "escreve_remote_rclone()",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "envia_arquivo",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "escreve_remote_rclone()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L391"
+    },
+    {
+      "id": "backup_cpanel_tamanho_arquivo",
+      "label": "tamanho_arquivo()",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "envia_arquivo",
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "norm_label": "tamanho_arquivo()",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L287"
+    },
+    {
       "id": "backup_cpanel_descobre_contas",
       "label": "descobre_contas()",
       "_origin": "ast",
-      "community": 5,
+      "community": 7,
       "community_name": "descobre_contas",
       "file_type": "code",
       "metadata": {
@@ -1022,13 +1292,13 @@
       },
       "norm_label": "descobre_contas()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L782"
+      "source_location": "L772"
     },
     {
       "id": "backup_cpanel_le_metadados_cpanel",
       "label": "le_metadados_cpanel()",
       "_origin": "ast",
-      "community": 5,
+      "community": 7,
       "community_name": "descobre_contas",
       "file_type": "code",
       "metadata": {
@@ -1037,13 +1307,13 @@
       },
       "norm_label": "le_metadados_cpanel()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L756"
+      "source_location": "L746"
     },
     {
       "id": "backup_cpanel_na_lista",
       "label": "na_lista()",
       "_origin": "ast",
-      "community": 5,
+      "community": 7,
       "community_name": "descobre_contas",
       "file_type": "code",
       "metadata": {
@@ -1052,13 +1322,13 @@
       },
       "norm_label": "na_lista()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L321"
+      "source_location": "L320"
     },
     {
       "id": "backup_cpanel_pasta_de_servico",
       "label": "pasta_de_servico()",
       "_origin": "ast",
-      "community": 5,
+      "community": 7,
       "community_name": "descobre_contas",
       "file_type": "code",
       "metadata": {
@@ -1067,73 +1337,13 @@
       },
       "norm_label": "pasta_de_servico()",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L713"
-    },
-    {
-      "id": "backup_cpanel_escolhe_caminho_autorizacao",
-      "label": "escolhe_caminho_autorizacao()",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "escolhe_caminho_autorizacao()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L575"
-    },
-    {
-      "id": "backup_cpanel_le_do_tty",
-      "label": "le_do_tty()",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "le_do_tty()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L307"
-    },
-    {
-      "id": "backup_cpanel_pergunta_sim",
-      "label": "pergunta_sim()",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "pergunta_sim()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L298"
-    },
-    {
-      "id": "backup_cpanel_tem_terminal",
-      "label": "tem_terminal()",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "tem_terminal",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "tem_terminal()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L296"
+      "source_location": "L703"
     },
     {
       "id": "scripts_monta_lab",
       "label": "monta-lab.sh",
       "_origin": "ast",
-      "community": 7,
+      "community": 8,
       "community_name": "monta-lab.sh script",
       "file_type": "code",
       "metadata": {
@@ -1148,7 +1358,7 @@
       "id": "scripts_monta_lab_cria_conta",
       "label": "cria_conta()",
       "_origin": "ast",
-      "community": 7,
+      "community": 8,
       "community_name": "monta-lab.sh script",
       "file_type": "code",
       "metadata": {
@@ -1163,7 +1373,7 @@
       "id": "scripts_monta_lab_sh__entry",
       "label": "monta-lab.sh script",
       "_origin": "ast",
-      "community": 7,
+      "community": 8,
       "community_name": "monta-lab.sh script",
       "file_type": "code",
       "metadata": {
@@ -1175,39 +1385,9 @@
       "source_location": "L1"
     },
     {
-      "id": "backup_cpanel_compacta_conta",
-      "label": "compacta_conta()",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "compacta_conta",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "compacta_conta()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L902"
-    },
-    {
-      "id": "backup_cpanel_monta_exclusoes",
-      "label": "monta_exclusoes()",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "compacta_conta",
-      "file_type": "code",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "norm_label": "monta_exclusoes()",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L857"
-    },
-    {
       "id": "json",
       "label": "json",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "external": true,
       "file_type": "concept",
@@ -1218,7 +1398,7 @@
     {
       "id": "pathlib",
       "label": "pathlib",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "external": true,
       "file_type": "concept",
@@ -1229,7 +1409,7 @@
     {
       "id": "sys",
       "label": "sys",
-      "community": 4,
+      "community": 5,
       "community_name": "gerar-grafo.py",
       "external": true,
       "file_type": "concept",
@@ -1240,55 +1420,31 @@
   ],
   "links": [
     {
-      "source": "backup_cpanel_autoriza_por_token_colado",
-      "target": "backup_cpanel_le_token_colado",
+      "source": "backup_cpanel_autoriza_por_link",
+      "target": "backup_cpanel_tem",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L494",
+      "source_location": "L484",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_token_colado",
-      "target": "backup_cpanel_aviso",
+      "source": "backup_cpanel_autoriza_por_link",
+      "target": "backup_cpanel_escopo_codificado",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L495",
+      "source_location": "L498",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_token_colado",
-      "target": "backup_cpanel_valida_token",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L495",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_autoriza_por_token_colado",
-      "target": "backup_cpanel_escreve_remote_rclone",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L496",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_autoriza_por_tunel",
+      "source": "backup_cpanel_autoriza_por_link",
       "target": "backup_cpanel_le_do_tty",
       "relation": "calls",
       "_origin": "ast",
@@ -1296,11 +1452,11 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L526",
+      "source_location": "L515",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_tunel",
+      "source": "backup_cpanel_autoriza_por_link",
       "target": "backup_cpanel_falha",
       "relation": "calls",
       "_origin": "ast",
@@ -1308,11 +1464,11 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L542",
+      "source_location": "L519",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_tunel",
+      "source": "backup_cpanel_autoriza_por_link",
       "target": "backup_cpanel_aviso",
       "relation": "calls",
       "_origin": "ast",
@@ -1320,35 +1476,47 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L543",
+      "source_location": "L520",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_tunel",
-      "target": "backup_cpanel_extrai_token",
+      "source": "backup_cpanel_autoriza_por_link",
+      "target": "backup_cpanel_diz",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L569",
+      "source_location": "L531",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_tunel",
-      "target": "backup_cpanel_valida_token",
+      "source": "backup_cpanel_autoriza_por_link",
+      "target": "backup_cpanel_valor_json",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L570",
+      "source_location": "L559",
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel_autoriza_por_tunel",
+      "source": "backup_cpanel_autoriza_por_link",
+      "target": "backup_cpanel_numero_json",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L568",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_autoriza_por_link",
       "target": "backup_cpanel_escreve_remote_rclone",
       "relation": "calls",
       "_origin": "ast",
@@ -1356,7 +1524,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L571",
+      "source_location": "L584",
       "weight": 1.0
     },
     {
@@ -1368,7 +1536,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L939",
+      "source_location": "L929",
       "weight": 1.0
     },
     {
@@ -1380,7 +1548,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L908",
+      "source_location": "L898",
       "weight": 1.0
     },
     {
@@ -1392,12 +1560,60 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L920",
+      "source_location": "L910",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel_configura_drive",
       "target": "backup_cpanel_passo",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L591",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_instala_rclone",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L593",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_remote_ja_existe",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L595",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_testa_remote",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L596",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_feito",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1409,43 +1625,19 @@
     },
     {
       "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_instala_rclone",
+      "target": "backup_cpanel_aviso",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L599",
+      "source_location": "L600",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_remote_ja_existe",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L601",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_testa_remote",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L602",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_feito",
+      "target": "backup_cpanel_tem_terminal",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1457,31 +1649,31 @@
     },
     {
       "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_aviso",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L606",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_tem_terminal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L609",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
       "target": "backup_cpanel_falha",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L604",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_tem",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L608",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_configura_drive",
+      "target": "backup_cpanel_autoriza_por_link",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1493,42 +1685,6 @@
     },
     {
       "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_escolhe_caminho_autorizacao",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L615",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_autoriza_por_tunel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L617",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
-      "target": "backup_cpanel_autoriza_por_token_colado",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L618",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_configura_drive",
       "target": "backup_cpanel_diz",
       "relation": "calls",
       "_origin": "ast",
@@ -1536,7 +1692,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L621",
+      "source_location": "L612",
       "weight": 1.0
     },
     {
@@ -1548,7 +1704,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L796",
+      "source_location": "L786",
       "weight": 1.0
     },
     {
@@ -1560,7 +1716,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L819",
+      "source_location": "L809",
       "weight": 1.0
     },
     {
@@ -1572,7 +1728,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L821",
+      "source_location": "L811",
       "weight": 1.0
     },
     {
@@ -1584,19 +1740,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L823",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_dump_bancos",
-      "target": "backup_cpanel_feito",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L1007",
+      "source_location": "L813",
       "weight": 1.0
     },
     {
@@ -1608,7 +1752,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L979",
+      "source_location": "L969",
       "weight": 1.0
     },
     {
@@ -1620,7 +1764,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L979",
+      "source_location": "L969",
       "weight": 1.0
     },
     {
@@ -1632,7 +1776,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L986",
+      "source_location": "L976",
       "weight": 1.0
     },
     {
@@ -1644,7 +1788,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L998",
+      "source_location": "L988",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_dump_bancos",
+      "target": "backup_cpanel_feito",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L997",
       "weight": 1.0
     },
     {
@@ -1656,7 +1812,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L656",
+      "source_location": "L646",
       "weight": 1.0
     },
     {
@@ -1668,7 +1824,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L658",
+      "source_location": "L648",
       "weight": 1.0
     },
     {
@@ -1680,7 +1836,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L662",
+      "source_location": "L652",
       "weight": 1.0
     },
     {
@@ -1692,19 +1848,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L670",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_escolhe_caminho_autorizacao",
-      "target": "backup_cpanel_le_do_tty",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L588",
+      "source_location": "L660",
       "weight": 1.0
     },
     {
@@ -1716,7 +1860,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L394",
+      "source_location": "L393",
       "weight": 1.0
     },
     {
@@ -1728,12 +1872,24 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L420",
+      "source_location": "L419",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel_instala_rclone",
       "target": "backup_cpanel_tem",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel_instala_rclone",
+      "target": "backup_cpanel_passo",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1745,18 +1901,6 @@
     },
     {
       "source": "backup_cpanel_instala_rclone",
-      "target": "backup_cpanel_passo",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L349",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_instala_rclone",
       "target": "backup_cpanel_feito",
       "relation": "calls",
       "_origin": "ast",
@@ -1764,7 +1908,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L352",
+      "source_location": "L351",
       "weight": 1.0
     },
     {
@@ -1776,7 +1920,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L359",
+      "source_location": "L358",
       "weight": 1.0
     },
     {
@@ -1788,7 +1932,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L363",
+      "source_location": "L362",
       "weight": 1.0
     },
     {
@@ -1800,7 +1944,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L364",
+      "source_location": "L363",
       "weight": 1.0
     },
     {
@@ -1812,19 +1956,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L309",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel_le_token_colado",
-      "target": "backup_cpanel_extrai_token",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L463",
+      "source_location": "L308",
       "weight": 1.0
     },
     {
@@ -1836,7 +1968,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L731",
+      "source_location": "L721",
       "weight": 1.0
     },
     {
@@ -1848,7 +1980,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L734",
+      "source_location": "L724",
       "weight": 1.0
     },
     {
@@ -1860,7 +1992,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L301",
+      "source_location": "L300",
       "weight": 1.0
     },
     {
@@ -1872,7 +2004,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L691",
+      "source_location": "L681",
       "weight": 1.0
     },
     {
@@ -1884,7 +2016,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L698",
+      "source_location": "L688",
       "weight": 1.0
     },
     {
@@ -1896,7 +2028,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L700",
+      "source_location": "L690",
       "weight": 1.0
     },
     {
@@ -1908,7 +2040,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1021",
+      "source_location": "L1011",
       "weight": 1.0
     },
     {
@@ -1920,7 +2052,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1036",
+      "source_location": "L1026",
       "weight": 1.0
     },
     {
@@ -1932,7 +2064,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1041",
+      "source_location": "L1031",
       "weight": 1.0
     },
     {
@@ -1944,7 +2076,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1046",
+      "source_location": "L1036",
       "weight": 1.0
     },
     {
@@ -1956,7 +2088,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1049",
+      "source_location": "L1039",
       "weight": 1.0
     },
     {
@@ -1968,7 +2100,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1082",
+      "source_location": "L1072",
       "weight": 1.0
     },
     {
@@ -1980,7 +2112,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1086",
+      "source_location": "L1076",
       "weight": 1.0
     },
     {
@@ -1992,7 +2124,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1129",
+      "source_location": "L1119",
       "weight": 1.0
     },
     {
@@ -2004,7 +2136,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1143",
+      "source_location": "L1133",
       "weight": 1.0
     },
     {
@@ -2016,7 +2148,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1168",
+      "source_location": "L1158",
       "weight": 1.0
     },
     {
@@ -2028,7 +2160,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1193",
+      "source_location": "L1183",
       "weight": 1.0
     },
     {
@@ -2040,7 +2172,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1196",
+      "source_location": "L1186",
       "weight": 1.0
     },
     {
@@ -2052,7 +2184,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1196",
+      "source_location": "L1186",
       "weight": 1.0
     },
     {
@@ -2064,7 +2196,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1208",
+      "source_location": "L1198",
       "weight": 1.0
     },
     {
@@ -2076,7 +2208,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1231",
+      "source_location": "L1221",
       "weight": 1.0
     },
     {
@@ -2088,7 +2220,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1237",
+      "source_location": "L1227",
       "weight": 1.0
     },
     {
@@ -2100,7 +2232,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1250",
+      "source_location": "L1240",
       "weight": 1.0
     },
     {
@@ -2112,7 +2244,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1258",
+      "source_location": "L1248",
       "weight": 1.0
     },
     {
@@ -2124,7 +2256,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1269",
+      "source_location": "L1259",
       "weight": 1.0
     },
     {
@@ -2136,7 +2268,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1285",
+      "source_location": "L1275",
       "weight": 1.0
     },
     {
@@ -2148,7 +2280,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1294",
+      "source_location": "L1284",
       "weight": 1.0
     },
     {
@@ -2160,7 +2292,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1321",
+      "source_location": "L1311",
       "weight": 1.0
     },
     {
@@ -2172,7 +2304,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L1446",
+      "source_location": "L1436",
       "weight": 1.0
     },
     {
@@ -2184,7 +2316,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L229",
+      "source_location": "L228",
       "weight": 1.0
     },
     {
@@ -2196,7 +2328,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L230",
+      "source_location": "L229",
       "weight": 1.0
     },
     {
@@ -2208,7 +2340,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L426",
+      "source_location": "L425",
       "weight": 1.0
     },
     {
@@ -2220,7 +2352,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backup-cpanel.sh",
-      "source_location": "L431",
+      "source_location": "L430",
       "weight": 1.0
     },
     {
@@ -2356,6 +2488,90 @@
       "weight": 1.0
     },
     {
+      "source": "scripts_testa_auth_roda_auth",
+      "target": "scripts_testa_auth_prepara",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_caso",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_roda_auth",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_nok",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_ok",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_tem_texto",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_sh__entry",
+      "target": "scripts_testa_auth_nao_tem_texto",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
       "source": "scripts_gerar_grafo",
       "target": "json",
       "relation": "imports",
@@ -2447,14 +2663,14 @@
       "weight": 1.0
     },
     {
-      "source": "backup_cpanel",
-      "target": "backup_cpanel_feito",
-      "relation": "defines",
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_sh__entry",
+      "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L100",
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -2465,7 +2681,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L101",
+      "source_location": "L100",
       "weight": 1.0
     },
     {
@@ -2476,7 +2692,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L102",
+      "source_location": "L101",
       "weight": 1.0
     },
     {
@@ -2487,7 +2703,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L103",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -2498,7 +2714,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L107",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -2509,7 +2725,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L252",
+      "source_location": "L251",
       "weight": 1.0
     },
     {
@@ -2520,7 +2736,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L254",
+      "source_location": "L253",
       "weight": 1.0
     },
     {
@@ -2531,7 +2747,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L259",
+      "source_location": "L258",
       "weight": 1.0
     },
     {
@@ -2542,7 +2758,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L270",
+      "source_location": "L269",
       "weight": 1.0
     },
     {
@@ -2553,7 +2769,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L281",
+      "source_location": "L280",
       "weight": 1.0
     },
     {
@@ -2564,7 +2780,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L288",
+      "source_location": "L287",
       "weight": 1.0
     },
     {
@@ -2575,7 +2791,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L296",
+      "source_location": "L295",
       "weight": 1.0
     },
     {
@@ -2586,7 +2802,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L298",
+      "source_location": "L297",
       "weight": 1.0
     },
     {
@@ -2597,7 +2813,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L307",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -2619,7 +2835,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L321",
+      "source_location": "L320",
       "weight": 1.0
     },
     {
@@ -2630,7 +2846,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L332",
+      "source_location": "L331",
       "weight": 1.0
     },
     {
@@ -2641,7 +2857,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L347",
+      "source_location": "L346",
       "weight": 1.0
     },
     {
@@ -2652,7 +2868,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L376",
+      "source_location": "L375",
       "weight": 1.0
     },
     {
@@ -2663,7 +2879,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L383",
+      "source_location": "L382",
       "weight": 1.0
     },
     {
@@ -2674,7 +2890,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L387",
+      "source_location": "L386",
       "weight": 1.0
     },
     {
@@ -2685,7 +2901,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L392",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -2696,7 +2912,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L423",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
@@ -2707,62 +2923,51 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L437",
+      "source_location": "L436",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel",
-      "target": "backup_cpanel_extrai_token",
+      "target": "backup_cpanel_escopo_codificado",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L447",
+      "source_location": "L442",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel",
-      "target": "backup_cpanel_le_token_colado",
+      "target": "backup_cpanel_valor_json",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L456",
+      "source_location": "L450",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel",
-      "target": "backup_cpanel_autoriza_por_token_colado",
+      "target": "backup_cpanel_numero_json",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L466",
+      "source_location": "L454",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel",
-      "target": "backup_cpanel_autoriza_por_tunel",
+      "target": "backup_cpanel_autoriza_por_link",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L505",
-      "weight": 1.0
-    },
-    {
-      "source": "backup_cpanel",
-      "target": "backup_cpanel_escolhe_caminho_autorizacao",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backup-cpanel.sh",
-      "source_location": "L575",
+      "source_location": "L479",
       "weight": 1.0
     },
     {
@@ -2773,7 +2978,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L596",
+      "source_location": "L590",
       "weight": 1.0
     },
     {
@@ -2784,7 +2989,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L631",
+      "source_location": "L621",
       "weight": 1.0
     },
     {
@@ -2795,7 +3000,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L650",
+      "source_location": "L640",
       "weight": 1.0
     },
     {
@@ -2806,7 +3011,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L687",
+      "source_location": "L677",
       "weight": 1.0
     },
     {
@@ -2817,7 +3022,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L713",
+      "source_location": "L703",
       "weight": 1.0
     },
     {
@@ -2828,7 +3033,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L72",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -2839,7 +3044,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L727",
+      "source_location": "L717",
       "weight": 1.0
     },
     {
@@ -2850,7 +3055,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L73",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -2861,7 +3066,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L74",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -2872,7 +3077,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L75",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -2883,7 +3088,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L756",
+      "source_location": "L746",
       "weight": 1.0
     },
     {
@@ -2894,7 +3099,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L76",
+      "source_location": "L75",
       "weight": 1.0
     },
     {
@@ -2905,7 +3110,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L77",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -2916,7 +3121,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L78",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -2927,7 +3132,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L782",
+      "source_location": "L772",
       "weight": 1.0
     },
     {
@@ -2938,7 +3143,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L79",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -2949,7 +3154,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L80",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -2960,7 +3165,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L81",
+      "source_location": "L80",
       "weight": 1.0
     },
     {
@@ -2971,7 +3176,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L82",
+      "source_location": "L81",
       "weight": 1.0
     },
     {
@@ -2982,7 +3187,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L83",
+      "source_location": "L82",
       "weight": 1.0
     },
     {
@@ -2993,7 +3198,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L857",
+      "source_location": "L847",
       "weight": 1.0
     },
     {
@@ -3004,7 +3209,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L902",
+      "source_location": "L892",
       "weight": 1.0
     },
     {
@@ -3015,7 +3220,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L931",
+      "source_location": "L921",
       "weight": 1.0
     },
     {
@@ -3026,7 +3231,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L936",
+      "source_location": "L926",
       "weight": 1.0
     },
     {
@@ -3037,7 +3242,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L96",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -3048,7 +3253,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L966",
+      "source_location": "L956",
       "weight": 1.0
     },
     {
@@ -3059,7 +3264,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L97",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -3070,7 +3275,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L976",
+      "source_location": "L966",
       "weight": 1.0
     },
     {
@@ -3081,12 +3286,23 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backup-cpanel.sh",
-      "source_location": "L98",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
       "source": "backup_cpanel",
       "target": "backup_cpanel_passo",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backup-cpanel.sh",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_cpanel",
+      "target": "backup_cpanel_feito",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3228,6 +3444,127 @@
       "weight": 1.0
     },
     {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_ok",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_nok",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_caso",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_prepara",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_roda_auth",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_tem_texto",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth",
+      "target": "scripts_testa_auth_nao_tem_texto",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_roda_auth",
+      "target": "scripts_testa_auth_le_do_tty",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_roda_auth",
+      "target": "scripts_testa_auth_tem_terminal",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_roda_auth",
+      "target": "scripts_testa_auth_curl",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_testa_auth_roda_auth",
+      "target": "scripts_testa_auth_arquivo_conf_rclone",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/testa-auth.sh",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
       "source": "scripts_gerar_grafo_rationale_2",
       "target": "scripts_gerar_grafo",
       "relation": "rationale_for",
@@ -3240,5 +3577,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "4f009eb434066ccfd7aca20b21e761158e3be3e8"
+  "built_at_commit": "dedcb3632f5e55ca8c40b1068d58148354804f89"
 }

@@ -155,26 +155,44 @@ guarda histórico. Aí `--drive-manter N` apaga as pastas de data mais antigas,
 mantendo as N mais novas. A remoção só alcança nome no formato de data que o
 próprio script escreve, nunca outra coisa que esteja na pasta.
 
-### 4.5 Autorização do Drive, dois caminhos, nenhum deles cria chave
+### 4.5 Autorização do Drive: um link, e a URL de volta
 
-O transporte é o rclone, com a chave que já vem embutida nele. O remote é
-gravado sem `client_id` e sem `client_secret` de propósito: assim o rclone usa a
-chave dele também para renovar o acesso. Gravar campo vazio faria a renovação
-falhar na semana seguinte.
+O script monta o link, o operador abre no navegador dele, autoriza, copia o
+endereço em que o navegador caiu e cola de volta. O script tira o `code=` dessa
+URL e troca por um token no `oauth2.googleapis.com/token`. Nada para instalar na
+máquina do operador, nada para criar no Google.
 
-Caminho 1, colar o token (padrão). O operador roda `rclone authorize "drive"` no
-computador dele, autoriza no navegador, e cola de volta a linha que o rclone
-imprime.
+A chave usada é a que já vem embutida no rclone, publicada no código dele.
+Credencial de aplicativo instalado não é confidencial por desenho, e é por usar
+essa que não existe projeto no Google Cloud, nem faturamento, nem verificação.
 
-Caminho 2, túnel SSH. O script roda o `rclone authorize` aqui no servidor,
-mostra o link, e o operador abre esse link no navegador dele com uma conexão
-`ssh -N -L 53682:localhost:53682` de pé. O rclone recebe o código direto, e não
-existe nada para copiar e colar. Serve para quem não quer instalar rclone na
-máquina dele.
+O remote é gravado **sem** `client_id` e `client_secret` de propósito: assim o
+rclone usa a chave dele também para renovar o acesso. Gravar campo vazio faria a
+renovação falhar na semana seguinte.
 
-Nos dois casos o token fica em `rclone.conf` com permissão 600, e o rclone
-renova o acesso sozinho depois. Da segunda execução em diante o script roda no
-cron sem terminal.
+#### Por que existe um endereço de retorno, se ninguém escuta nele
+
+O pedido de autorização do OAuth exige `redirect_uri`. Como o servidor não tem
+navegador, o valor aponta para `http://127.0.0.1:53682/`, que é a máquina do
+operador, onde não há nada escutando: a página falha, e o código vem no próprio
+endereço. É exatamente o valor que o rclone registra na chave dele, para não
+depender da tolerância do Google a variações de loopback.
+
+As duas alternativas que dispensariam isso foram medidas e não servem:
+
+| Alternativa | Resposta do Google, verificada |
+|---|---|
+| `urn:ietf:wg:oauth:2.0:oob`, que exibia o código na tela | `Error 400: invalid_request`, "not supported". Desligado em 2022 |
+| Fluxo de dispositivo (RFC 8628), com código curto em `google.com/device` | `invalid_client`, "Invalid client type". A chave do rclone é de aplicativo de computador, e o escopo do Drive não entra nesse fluxo |
+
+Então o caminho atual não é o mais simples que alguém imaginaria: é o mais
+simples que ainda existe.
+
+#### PKCE
+
+Quando há `openssl` na máquina, o pedido leva `code_challenge` em S256 e a troca
+leva o `code_verifier`. Protege contra alguém que intercepte o código colado,
+porque sem o verificador o código sozinho não vira token.
 
 ### 4.6 Ordem de verificação antes de gastar tempo
 
@@ -253,7 +271,18 @@ os caminhos absolutos redirecionados para a raiz falsa. O `rclone` de mentira
 tem dois modos de sabotagem: entregar o arquivo cortado, e devolver hash errado
 com o tamanho certo.
 
-**Resultado da última execução: 18 casos, 87 verificações, 0 reprovadas.**
+A autorização do Drive tem bateria própria, porque não depende do servidor
+simulado:
+
+```bash
+bash scripts/testa-auth.sh
+```
+
+Ela recorta as funções do script, troca o `/dev/tty` por arquivo, e usa um
+`curl` de mentira, então roda sem falar com o Google.
+
+**Resultado da última execução: 83 verificações na bateria do servidor e 21 na
+da autorização, 104 ao todo, 0 reprovadas.**
 
 | Caso | O que prova |
 |---|---|
@@ -273,7 +302,8 @@ com o tamanho certo.
 | T13 destino dentro de conta | recusado antes de começar |
 | T14 `--com-bancos` | pega os bancos com prefixo da conta e o banco sem prefixo pelo `/etc/dbowners`, e não leva banco de outra conta |
 | T15 sem terminal | recusa com o comando a rodar na mão, sem travar esperando entrada |
-| T16 token e `rclone.conf` | aceita o bloco inteiro do `rclone authorize` e só a linha JSON; recusa token sem `refresh_token` e texto sem token; grava sem `client_id`, preserva remote de outro serviço, não duplica seção, troca o token velho pelo novo, arquivo em 600 |
+| T16 escrita do `rclone.conf` | grava sem `client_id`, preserva remote de outro serviço, não duplica seção, troca o token velho pelo novo, arquivo em 600 |
+| T18 autorização (`scripts/testa-auth.sh`) | o link leva a chave do rclone, o redirecionamento certo, `access_type=offline`, `prompt=consent`, PKCE e o escopo do Drive; a URL colada vira token gravado; colar só o `code` também serve; recusa com mensagem própria quando a pessoa nega na tela, quando nada foi colado, quando o código venceu, quando o token vem sem `refresh_token` e quando o Google não responde |
 | T17 trava | pulado nesta máquina, que não tem `flock` |
 
 ### 7.1 O que não foi verificado, e por quê
