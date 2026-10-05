@@ -1,7 +1,7 @@
 # SDD: Backup das contas cPanel para o Google Drive
 
 Data: 05/10/2026
-Autor: Wesley (Grupo Life Company) com Claude Opus 5
+Autor: Wesley Menezes com Claude Opus 5
 Status: implementado
 
 ## 1. Problema

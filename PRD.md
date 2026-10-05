@@ -1,6 +1,6 @@
 # PRD: Backup das contas cPanel para o Google Drive
 
-Versão 1.0.0 | 05/10/2026 | Grupo Life Company
+Versão 1.0.0 | 05/10/2026 | Wesley Menezes
 
 ## 1. Para que serve
 
