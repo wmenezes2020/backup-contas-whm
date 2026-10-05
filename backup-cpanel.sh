@@ -47,6 +47,10 @@ MANTER_LOCAL=0
 FATOR_ESPACO=60              # % do tamanho cru que exigimos de espaco livre
 MARGEM_MB=200                # margem fixa, em MB
 ENVIAR=1
+REFAZER=0
+PULAR_PRONTAS=0
+JANELA_HORAS=12
+SO_REGISTRO=0
 SO_CONECTAR=0
 RECONECTAR=0
 DRIVE_REMOTE="cpanel-drive"
@@ -86,6 +90,9 @@ OK_CONTAS=0
 FALHA_CONTAS=0
 PULADAS=0
 BYTES_ENVIADOS=0
+REGISTRO=""                  # arquivo com as contas ja feitas
+DECISAO_GERAL=""             # vazio | refazer | pular, quando a pessoa responde "todas"
+EXISTE_QUANDO=""; EXISTE_TAMANHO=0; EXISTE_ONDE=""; EXISTE_IDADE_H=0
 CONFERENCIA=""               # MD5 | tamanho, do ultimo arquivo enviado
 CONFERENCIA_POR_TAMANHO=0    # 1 quando alguma conta ficou so na conferencia de tamanho
 
@@ -156,6 +163,20 @@ OPCOES
       --simular         Lista as contas, os tamanhos e a estimativa. Nao grava
                         e nao envia nada.
   -s, --sim             Responde sim as perguntas (uso no cron)
+
+RETOMAR DE ONDE PAROU
+  Toda conta que termina deixa uma linha em
+  DESTINO/.backup-cpanel-registro.tsv. Se a execucao morrer na conta 40 de 60,
+  basta rodar o mesmo comando de novo: para cada conta que ja tem backup, o
+  script CONFERE que o arquivo esta mesmo la e pergunta o que fazer.
+
+      --registro        Mostra o que ja foi feito, quando e onde, e sai.
+      --refazer         Refaz toda conta, mesmo as que ja tem backup.
+      --pular-prontas   Pula toda conta que ja tem backup, sem perguntar.
+                        E o modo de retomada direto, para continuar depressa.
+      --janela-horas N  Sem terminal (no cron), backup com menos de N horas
+                        conta como retomada e e pulado; mais velho que isso e
+                        ciclo novo e e refeito. Padrao: $JANELA_HORAS
       --forcar          Ignora o aviso de espaco em disco insuficiente
   -h, --ajuda           Esta ajuda
 
@@ -218,6 +239,10 @@ while (($#)); do
     -s|--sim)          SIM=1; shift ;;
     --forcar)          FORCAR=1; shift ;;
     --sem-drive)       ENVIAR=0; shift ;;
+    --refazer)         REFAZER=1; shift ;;
+    --pular-prontas)   PULAR_PRONTAS=1; shift ;;
+    --janela-horas)    JANELA_HORAS="${2:?horas}"; shift 2 ;;
+    --registro)        SO_REGISTRO=1; shift ;;
     --conectar|--drive-configurar) SO_CONECTAR=1; shift ;;
     --reconectar|--drive-reconfigurar) RECONECTAR=1; SO_CONECTAR=1; shift ;;
     --drive-pasta)     DRIVE_PASTA="${2:?pasta}"; shift 2 ;;
@@ -233,6 +258,8 @@ done
 [[ "$NIVEL_COMPRESSAO" =~ ^[1-9]$ ]] || morre "--compressao precisa ser de 1 a 9"
 [[ "$FATOR_ESPACO" =~ ^[0-9]+$ ]]    || morre "--fator precisa ser um numero"
 [[ "$DRIVE_MANTER" =~ ^[0-9]+$ ]]    || morre "--drive-manter precisa ser um numero"
+[[ "$JANELA_HORAS" =~ ^[0-9]+$ ]]    || morre "--janela-horas precisa ser um numero"
+if ((REFAZER)) && ((PULAR_PRONTAS)); then morre "--refazer e --pular-prontas pedem coisas opostas"; fi
 case "$DRIVE_ESCOPO" in total|arquivos) ;; *) morre "--drive-escopo aceita 'total' ou 'arquivos'" ;; esac
 [[ -n "$DRIVE_PASTA" ]] || morre "--drive-pasta nao pode ser vazio"
 DRIVE_PASTA="${DRIVE_PASTA#/}"; DRIVE_PASTA="${DRIVE_PASTA%/}"
@@ -980,6 +1007,135 @@ dump_bancos() {  # dump_bancos <usuario> <saida>
 }
 
 # ---------------------------------------------------------------------------
+# Registro das contas ja feitas, e retomada
+#
+# Backup de 60 contas que morre na conta 40 nao pode recomecar do zero. Toda
+# conta que termina deixa uma linha aqui, e a execucao seguinte le isso para
+# saber de onde continuar.
+#
+# O registro sozinho nao decide nada: ele diz onde o arquivo deveria estar, e o
+# script vai CONFERIR que ele esta mesmo la antes de pular a conta. Registro que
+# aponta para arquivo que sumiu vira aviso, e a conta e refeita.
+#
+# Uma linha por conta terminada, separada por tabulacao:
+#   epoch  data_legivel  usuario  situacao  bytes  sha256  destino
+# ---------------------------------------------------------------------------
+registra_conta() {  # registra_conta <usuario> <situacao> <bytes> <sha256> <destino>
+  [[ -n "$REGISTRO" ]] || return 0
+  { printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+      "$(date +%s)" "$(date '+%d/%m/%Y %H:%M')" "$1" "$2" "${3:-0}" "${4:--}" "${5:--}" \
+      >> "$REGISTRO"; } 2>/dev/null || true
+  chmod 600 "$REGISTRO" 2>/dev/null || true
+  return 0
+}
+
+# Preenche EXISTE_* e devolve 0 quando a conta ja tem backup que ainda esta la.
+backup_existente() {
+  local u="$1" linha epoch quando bytes destino agora remoto arquivo_local
+  EXISTE_QUANDO=""; EXISTE_TAMANHO=0; EXISTE_ONDE=""; EXISTE_IDADE_H=0
+
+  [[ -f "$REGISTRO" ]] || return 1
+  linha="$(awk -F'\t' -v u="$u" '$3==u && $4=="ok" {l=$0} END{print l}' "$REGISTRO" 2>/dev/null)" || linha=""
+  [[ -n "$linha" ]] || return 1
+
+  IFS=$'\t' read -r epoch quando _usuario _situacao bytes _sha destino <<< "$linha"
+  [[ "$epoch" =~ ^[0-9]+$ ]] || return 1
+  agora="$(date +%s)"
+  EXISTE_IDADE_H=$(( (agora - epoch) / 3600 ))
+  EXISTE_QUANDO="$quando"
+  EXISTE_TAMANHO="${bytes:-0}"
+  EXISTE_ONDE="$destino"
+
+  # agora a parte que importa: conferir que o arquivo existe de verdade
+  if ((ENVIAR)); then
+    [[ "$destino" == *:* ]] || return 1
+    remoto="$(rclone size --config "$(arquivo_conf_rclone)" --json "$destino" 2>>"$LOG" \
+              | sed -n 's/.*"bytes":[[:space:]]*\([0-9]\{1,\}\).*/\1/p' | head -1)" || remoto=""
+    if [[ -z "$remoto" || "$remoto" == 0 ]]; then
+      aviso "$u: o registro apontava para $destino, mas nao achei o arquivo la. Vou refazer."
+      return 1
+    fi
+    EXISTE_TAMANHO="$remoto"
+  else
+    arquivo_local="$destino"
+    [[ -f "$arquivo_local" ]] || arquivo_local="$DESTINO/$u.tar.gz"
+    [[ -f "$arquivo_local" ]] || return 1
+    EXISTE_TAMANHO="$(tamanho_arquivo "$arquivo_local")"
+    EXISTE_ONDE="$arquivo_local"
+  fi
+  return 0
+}
+
+pergunta_conta() {  # 0 = refazer, 1 = pular
+  local u="$1" r=""
+  [[ "$DECISAO_GERAL" == refazer ]] && return 0
+  [[ "$DECISAO_GERAL" == pular ]]   && return 1
+  {
+    printf '\n'
+    printf '  %s ja tem backup:\n' "$u"
+    printf '    feito em .. %s  (%sh atras)\n' "$EXISTE_QUANDO" "$EXISTE_IDADE_H"
+    printf '    tamanho ... %s\n' "$(legivel "$EXISTE_TAMANHO")"
+    printf '    onde ...... %s\n' "$EXISTE_ONDE"
+    printf '\n'
+    printf '    r   refazer esta conta\n'
+    printf '    p   pular e ir para a proxima  (padrao)\n'
+    printf '    tr  refazer TODAS as que ja tem backup, sem perguntar de novo\n'
+    printf '    tp  pular TODAS as que ja tem backup, sem perguntar de novo\n'
+  } > /dev/tty
+  r="$(le_do_tty 'Escolha')"
+  r="$(printf '%s' "$r" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+  case "$r" in
+    r)  return 0 ;;
+    tr) DECISAO_GERAL=refazer; diz "vou refazer todas as que ja tem backup"; return 0 ;;
+    tp) DECISAO_GERAL=pular;   diz "vou pular todas as que ja tem backup"; return 1 ;;
+    *)  return 1 ;;
+  esac
+}
+
+decide_conta() {  # 0 = fazer o backup desta conta, 1 = pular
+  local u="$1"
+  backup_existente "$u" || return 0
+
+  if ((REFAZER)); then
+    diz "$u: ja tinha backup de $EXISTE_QUANDO, refazendo por --refazer"
+    return 0
+  fi
+  if ((PULAR_PRONTAS)); then
+    feito "$u: pulada, ja tem backup de $EXISTE_QUANDO em $EXISTE_ONDE"
+    return 1
+  fi
+  if ((SIM == 0)) && tem_terminal; then
+    pergunta_conta "$u"
+    return $?
+  fi
+  # sem terminal, no cron: backup recente e retomada do que morreu no meio,
+  # backup velho e ciclo novo e tem que ser refeito
+  if ((EXISTE_IDADE_H < JANELA_HORAS)); then
+    feito "$u: pulada, ja tem backup de $EXISTE_QUANDO, com menos de ${JANELA_HORAS}h"
+    return 1
+  fi
+  diz "$u: o backup anterior e de $EXISTE_QUANDO, com mais de ${JANELA_HORAS}h, refazendo"
+  return 0
+}
+
+mostra_registro() {
+  if [[ ! -s "$REGISTRO" ]]; then
+    printf '\n  Nenhuma conta registrada ainda em %s\n\n' "$REGISTRO"
+    return 0
+  fi
+  printf '\n  %-20s %-18s %10s %-16s %s\n' CONTA QUANDO TAMANHO SITUACAO ONDE
+  printf '  %s\n' "$(printf '%.0s-' {1..100})"
+  local epoch quando usuario situacao bytes sha destino
+  while IFS=$'\t' read -r epoch quando usuario situacao bytes sha destino; do
+    [[ -n "$usuario" ]] || continue
+    printf '  %-20s %-18s %10s %-16s %s\n' \
+      "$usuario" "$quando" "$(legivel "${bytes:-0}")" "$situacao" "$destino"
+  done < "$REGISTRO"
+  printf '\n  O registro fica em %s\n\n' "$REGISTRO"
+  return 0
+}
+
+# ---------------------------------------------------------------------------
 # Modo --conectar: so liga o Drive e sai
 # ---------------------------------------------------------------------------
 if ((SO_CONECTAR)); then
@@ -1071,6 +1227,15 @@ for r in "${RAIZES[@]}"; do
 done
 chmod 700 "$DESTINO" 2>/dev/null || true
 feito "destino: $DESTINO"
+
+# o registro das contas ja feitas mora junto do destino, e sobrevive a
+# limpeza da copia local, porque e ele que permite retomar
+REGISTRO="$DESTINO/.backup-cpanel-registro.tsv"
+
+if ((SO_REGISTRO)); then
+  mostra_registro
+  exit 0
+fi
 
 TMP="$(mktemp -d)"; chmod 700 "$TMP"
 
@@ -1193,10 +1358,17 @@ MARGEM=$((MARGEM_MB * 1024 * 1024))
 
 for u in "${CONTAS[@]}"; do
   dir="${HOME_DE[$u]}"
-  passo "Conta $u  ($((OK_CONTAS + FALHA_CONTAS + 1)) de ${#CONTAS[@]})"
+  passo "Conta $u  ($((OK_CONTAS + FALHA_CONTAS + PULADAS + 1)) de ${#CONTAS[@]})"
   comeco="$(date +%s)"
   arquivo="$DESTINO/$u.tar.gz"
   enviado_ok=0
+
+  # ja existe backup desta conta? Confere de verdade, e so entao decide
+  if ! decide_conta "$u"; then
+    PULADAS=$((PULADAS + 1))
+    LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	0	$EXISTE_TAMANHO	ja-tinha	0")
+    continue
+  fi
 
   cru="$(tamanho_de "$dir")"
   livre="$(espaco_livre "$DESTINO")"
@@ -1313,11 +1485,17 @@ for u in "${CONTAS[@]}"; do
   if ((ENVIAR)) && ((enviado_ok == 0)); then
     FALHA_CONTAS=$((FALHA_CONTAS + 1))
     LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	$cru	$comprimido	erro-envio	$gasto")
+    registra_conta "$u" falha "$comprimido" "$sha" "$DESTINO/$(basename "$arquivo")"
   else
     OK_CONTAS=$((OK_CONTAS + 1))
     situacao=ok
     ((erro_banco)) && situacao=ok-banco-falhou
     LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	$cru	$comprimido	$situacao	$gasto")
+    if ((ENVIAR)); then
+      registra_conta "$u" ok "$comprimido" "$sha" "$PASTA_DRIVE/$(basename "$arquivo")"
+    else
+      registra_conta "$u" ok "$comprimido" "$sha" "$DESTINO/$(basename "$arquivo")"
+    fi
   fi
   feito "$u terminou em $((gasto / 60))m $((gasto % 60))s"
 done

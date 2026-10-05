@@ -298,6 +298,51 @@ while IFS= read -r l; do
 done <<< "$RES"
 
 # ===========================================================================
+# ===========================================================================
+caso "T18 registro das contas feitas e retomada"
+limpa; conecta
+roda --contas cliente1,cliente2
+REG="$DEST/.backup-cpanel-registro.tsv"
+[[ -f "$REG" ]] && ok "escreve o registro das contas feitas" || nok "T18 sem registro"
+[[ "$(awk -F'	' '$4=="ok"{n++} END{print n+0}' "$REG" 2>/dev/null)" == 2 ]]   && ok "duas contas registradas como ok" || nok "T18 contagem do registro"
+grep -q "BACKUP-CPANEL/cliente1.tar.gz" "$REG" && ok "o registro guarda onde o arquivo ficou" || nok "T18 destino no registro"
+
+# segunda execucao: as duas ja tem backup, e --pular-prontas tem que pular
+roda --contas cliente1,cliente2 --pular-prontas
+contem "$SAIDA" "cliente1: pulada, ja tem backup" && ok "--pular-prontas pula a que ja tem" || nok "T18 pular-prontas"
+contem "$SAIDA" "Puladas ....... 2" && ok "conta as duas como puladas" || nok "T18 contagem de puladas"
+((CODIGO == 0)) && ok "sai com 0 quando so pulou" || nok "T18 codigo=$CODIGO"
+
+# --refazer ignora o registro
+roda --contas cliente1 --refazer
+contem "$SAIDA" "refazendo por --refazer" && ok "--refazer refaz mesmo tendo backup" || nok "T18 refazer"
+
+# registro que aponta para arquivo que sumiu: tem que refazer, com aviso
+rm -f "$DRIVE/BACKUP-CPANEL/cliente2.tar.gz"
+roda --contas cliente2 --pular-prontas
+contem "$SAIDA" "nao achei o arquivo la" && ok "nao confia no registro: confere o arquivo no Drive" || nok "T18 validacao"
+[[ -f "$DRIVE/BACKUP-CPANEL/cliente2.tar.gz" ]] && ok "refez a conta cujo arquivo havia sumido" || nok "T18 refez a sumida"
+
+caso "T19 retomada depois de uma execucao interrompida"
+limpa; conecta
+roda --contas cliente1
+# cliente2 e parada9 nunca foram feitas: a retomada tem que fazer so elas
+roda --pular-prontas
+contem "$SAIDA" "cliente1: pulada" && ok "pula a que ja estava pronta" || nok "T19 pulou a pronta"
+[[ -f "$DRIVE/BACKUP-CPANEL/cliente2.tar.gz" && -f "$DRIVE/BACKUP-CPANEL/parada9.tar.gz" ]]   && ok "faz as que faltavam" || nok "T19 nao fez as que faltavam"
+contem "$SAIDA" "Contas ok ..... 2" && ok "o resumo conta so as que fez agora" || nok "T19 resumo"
+
+caso "T20 --registro mostra o que ja foi feito"
+roda --registro
+((CODIGO == 0)) && ok "sai com 0" || nok "T20 codigo=$CODIGO"
+contem "$SAIDA" "cliente1" && ok "lista as contas do registro" || nok "T20 lista"
+contem "$SAIDA" "CONTA" && ok "mostra o cabecalho da tabela" || nok "T20 cabecalho"
+nao_contem "$SAIDA" "Procurando as contas" && ok "nao faz backup nenhum, so mostra" || nok "T20 fez backup"
+
+caso "T21 --refazer e --pular-prontas juntos sao recusados"
+roda --refazer --pular-prontas --contas cliente1
+{ ((CODIGO == 1)) && contem "$SAIDA" "pedem coisas opostas"; }   && ok "recusa a combinacao contraditoria" || nok "T21 aceitou"
+
 caso "T17 trava contra duas execucoes ao mesmo tempo"
 if command -v flock >/dev/null 2>&1; then
   limpa

@@ -122,6 +122,18 @@ próprio bash (`${caminho##*/}`, `IFS=: read`) e ler o
 `/var/cpanel/users/<user>` em uma passada. Em servidor com centenas de contas
 isso é tempo real economizado, não cosmético.
 
+**O registro de contas feitas nunca decide sozinho.** Ele diz onde o arquivo
+deveria estar; quem decide e a conferencia de que ele esta mesmo la, no Drive ou
+em disco. Registro apontando para arquivo apagado a mao viraria uma conta pulada
+sem backup nenhum, que e o pior resultado possivel: a tela diria "pulada, ja tem
+backup" e nao existiria copia alguma.
+
+**A retomada sem terminal usa idade, nao bandeira.** No cron nao tem ninguem
+para responder. Backup com menos de `--janela-horas` (12 por padrao) e retomada
+do que morreu no meio e e pulado; mais velho que isso e ciclo novo e e refeito.
+Sem essa regra, ou o cron refaria tudo sempre, inutilizando a retomada, ou
+pularia tudo para sempre, parando de fazer backup sem avisar.
+
 **O graphify recusa gravar um grafo menor que o anterior.** E protecao contra
 extracao que falhou pela metade estragar um mapa bom. Quando o codigo encolheu
 de verdade, como ao apagar funcao morta, a recusa esta errada: confira a

@@ -52,6 +52,10 @@ trabalho que não deveria existir aqui.
 | Modo leve | `--leve` tira estatística, log e cache | site e e-mail continuam dentro |
 | Cifra opcional | AES256 por gpg, openssl como reserva | `--cifrar` gera `.tar.gz.gpg` |
 | Filtros | `--contas`, `--excluir`, `--sem-suspensas`, `--incluir-orfas` | o relatório conta as puladas |
+| Registro do que já foi feito | Uma linha por conta terminada em `.backup-cpanel-registro.tsv`, dentro do destino, com data, tamanho, SHA256 e onde o arquivo ficou | `--registro` mostra a tabela e sai sem fazer backup |
+| Retomada depois de erro | Execução que morre na conta 40 de 60 continua de onde parou ao rodar o mesmo comando | conta que já tem backup faz o script perguntar `r`, `p`, `tr` ou `tp`, e `--pular-prontas` responde tudo de uma vez |
+| Validação antes de pular | O registro não é acreditado sozinho: o script confere o arquivo no Drive | registro apontando para arquivo que sumiu vira aviso e a conta é refeita |
+| Retomada no cron, sem ninguém | Sem terminal, backup com menos de `--janela-horas` conta como retomada e é pulado; mais velho é ciclo novo e é refeito | padrão 12 horas, o que faz o backup diário se refazer inteiro todo dia |
 | Proteções | Destino fora de conta, trava contra execução dupla, arquivo em 600 | destino dentro de `/home/<conta>` é recusado antes de começar |
 
 ## 4. Fora de escopo
@@ -136,8 +140,8 @@ sem usuário no sistema, uma com home em outra partição), mais `virtfs`,
 `mysql` e um `mysqldump` simulados. O `rclone` de mentira sabota de dois jeitos:
 entregando o arquivo cortado, e devolvendo hash errado com o tamanho certo.
 
-**Última execução: 83 verificações na bateria do servidor simulado e 21 na da
-autorização do Drive (`scripts/testa-auth.sh`), 104 ao todo, 0 reprovadas.**
+**Última execução: 100 verificações na bateria do servidor simulado e 21 na da
+autorização do Drive (`scripts/testa-auth.sh`), 121 ao todo, 0 reprovadas.**
 `bash -n` limpo.
 
 Os casos, um por linha, estão na tabela da seção 7 de

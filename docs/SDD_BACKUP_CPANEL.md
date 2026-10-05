@@ -281,8 +281,8 @@ bash scripts/testa-auth.sh
 Ela recorta as funções do script, troca o `/dev/tty` por arquivo, e usa um
 `curl` de mentira, então roda sem falar com o Google.
 
-**Resultado da última execução: 83 verificações na bateria do servidor e 21 na
-da autorização, 104 ao todo, 0 reprovadas.**
+**Resultado da última execução: 100 verificações na bateria do servidor e 21 na
+da autorização, 121 ao todo, 0 reprovadas.**
 
 | Caso | O que prova |
 |---|---|
@@ -305,6 +305,10 @@ da autorização, 104 ao todo, 0 reprovadas.**
 | T16 escrita do `rclone.conf` | grava sem `client_id`, preserva remote de outro serviço, não duplica seção, troca o token velho pelo novo, arquivo em 600 |
 | T18 autorização (`scripts/testa-auth.sh`) | o link leva a chave do rclone, o redirecionamento certo, `access_type=offline`, `prompt=consent`, PKCE e o escopo do Drive; a URL colada vira token gravado; colar só o `code` também serve; recusa com mensagem própria quando a pessoa nega na tela, quando nada foi colado, quando o código venceu, quando o token vem sem `refresh_token` e quando o Google não responde |
 | T17 trava | pulado nesta máquina, que não tem `flock` |
+| T18 registro e retomada | o registro é escrito com destino e tamanho; `--pular-prontas` pula o que já tem backup; `--refazer` refaz; registro apontando para arquivo que sumiu do Drive vira aviso e a conta é refeita |
+| T19 retomada real | execução que fez só uma conta, retomada, pula a pronta e faz as duas que faltavam |
+| T20 `--registro` | lista a tabela do que já foi feito e sai sem fazer backup |
+| T21 combinação inválida | `--refazer` com `--pular-prontas` é recusado na entrada |
 
 ### 7.1 O que não foi verificado, e por quê
 

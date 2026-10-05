@@ -144,6 +144,61 @@ aparecem listadas no final da tela.
 
 Depois disso, agende no cron (seção [Agendar](#agendar)).
 
+## Se der erro no meio, ele continua de onde parou
+
+Backup de 60 contas que morre na conta 40 não pode recomeçar do zero. Toda conta
+que termina deixa uma linha em `.backup-cpanel-registro.tsv`, dentro da pasta de
+destino. Esse arquivo sobrevive à limpeza da cópia local, porque é ele que
+permite retomar.
+
+Para ver o que já foi feito:
+
+```bash
+sudo ./backup-cpanel.sh --registro
+```
+
+```
+  CONTA                QUANDO                TAMANHO SITUACAO         ONDE
+  ----------------------------------------------------------------------------
+  cliente1             05/10/2026 03:14       1.2 GB ok               cpanel-drive:BACKUP-CPANEL/cliente1.tar.gz
+  cliente2             05/10/2026 03:41     780.0 MB ok               cpanel-drive:BACKUP-CPANEL/cliente2.tar.gz
+```
+
+Rodando o mesmo comando de novo, cada conta que já tem backup faz o script
+parar e perguntar:
+
+```
+  cliente1 ja tem backup:
+    feito em .. 05/10/2026 03:14  (2h atras)
+    tamanho ... 1.2 GB
+    onde ...... cpanel-drive:BACKUP-CPANEL/cliente1.tar.gz
+
+    r   refazer esta conta
+    p   pular e ir para a proxima  (padrao)
+    tr  refazer TODAS as que ja tem backup, sem perguntar de novo
+    tp  pular TODAS as que ja tem backup, sem perguntar de novo
+```
+
+Responder `tp` uma vez pula tudo que já está pronto e segue direto para o que
+falta. É a retomada em uma tecla.
+
+**O registro não é acreditado de olhos fechados.** Antes de pular qualquer
+conta, o script confere que o arquivo está mesmo no Drive, com tamanho maior que
+zero. Registro apontando para arquivo que sumiu vira aviso na tela, e a conta é
+refeita.
+
+Para não ter pergunta nenhuma:
+
+| Opção | O que faz |
+|---|---|
+| `--pular-prontas` | pula tudo que já tem backup. É a retomada direta |
+| `--refazer` | refaz tudo, mesmo o que já tem backup |
+| `--janela-horas N` | no cron, sem terminal: backup com menos de N horas conta como retomada e é pulado, mais velho é ciclo novo e é refeito. Padrão 12 |
+
+No cron isso funciona sozinho: se a execução da madrugada morrer e você rodar de
+novo às 6h, ele pula o que já ficou pronto e termina o resto. No dia seguinte,
+tudo tem mais de 12 horas, e o backup inteiro é refeito.
+
 ## Conectar o Google Drive
 
 Um link e uma colada. Nada para instalar na sua máquina, nada para criar no
