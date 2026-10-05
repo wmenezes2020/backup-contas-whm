@@ -1,0 +1,21 @@
+# O servidor cPanel de mentira que a bateria de testes monta. Reproduzível com
+# scripts/monta-lab.sh, e pesa, então fica fora do repositório.
+.lab/
+.lab.velho.*/
+
+# Pacote de conta gerado em teste a mão. Nunca versionar: tem dado de cliente.
+*.tar.gz
+*.tar.gz.gpg
+*.tar.gz.enc
+*.tar.gz.sha256
+*-bancos.sql.gz
+RELATORIO-*.txt
+
+# Rascunho da máquina dentro do graphify-out. O resto do graphify-out É
+# versionado e entra no commit da tarefa: ele é o mapa do repositório, não
+# sobra de build, e não entra em nenhuma limpeza de disco.
+graphify-out/cache/
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_extract.json
+graphify-out/.graphify_root
+graphify-out/.graphify_python

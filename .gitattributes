@@ -1,0 +1,15 @@
+# Este repositório entrega script que roda em servidor Linux. Com o autocrlf do
+# Git no Windows ligado, um clone nesta máquina devolveria backup-cpanel.sh com
+# CRLF, e aí a primeira linha vira "#!/usr/bin/env bash\r", que o Linux não
+# executa: o erro que aparece é "bad interpreter: no such file or directory", e
+# ninguém liga isso a fim de linha. Forçar LF resolve na origem.
+* text=auto eol=lf
+
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.mdc text eol=lf
+
+# o graph.html do graphify é artefato gerado, vai como está
+graphify-out/graph.html -text
