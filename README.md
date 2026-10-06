@@ -144,6 +144,23 @@ aparecem listadas no final da tela.
 
 Depois disso, agende no cron (seção [Agendar](#agendar)).
 
+## Refazer só os bancos de uma conta
+
+Se o `.tar.gz` da conta já está bom no Drive e o que falhou foi o dump dos
+bancos, não faz sentido repetir horas de compactação:
+
+```bash
+sudo ./backup-cpanel.sh --so-bancos --contas cliente1,cliente2
+```
+
+Ele não compacta a pasta, e nem mede o tamanho dela, que é o que demora numa
+conta de 145 GB. Gera o `<usuario>-bancos.sql.gz`, envia e acabou. Numa conta
+grande isso é a diferença entre minutos e horas.
+
+O registro marca essas execuções como `ok-so-bancos`, separado de backup
+completo. Assim o próximo backup inteiro ainda vai fazer o `.tar.gz` da conta,
+em vez de achar que ela já está pronta.
+
 ## Se der erro no meio, ele continua de onde parou
 
 Backup de 60 contas que morre na conta 40 não pode recomeçar do zero. Toda conta
@@ -319,6 +336,7 @@ todo dia.
 | `-z, --compressao N` | Nível do gzip, 1 a 9. Padrão 6 |
 | `--leve` | Deixa fora estatística, log e cache da conta. Fica bem menor |
 | `--com-bancos` | Gera também `<usuario>-bancos.sql.gz` com os bancos MySQL da conta |
+| `--so-bancos` | Só os bancos: não compacta a pasta nem mede o tamanho dela. Para refazer o dump de uma conta cujo `.tar.gz` já está bom |
 | `--cifrar` | Cifra cada arquivo com AES256 |
 | `--senha-arquivo F` | Lê a senha da cifra do arquivo F em vez de perguntar |
 | `--sem-nice` | Roda em prioridade normal de CPU e disco |

@@ -37,6 +37,7 @@ INCLUIR_ORFAS=0
 NIVEL_COMPRESSAO=6
 LEVE=0
 COM_BANCOS=0
+SO_BANCOS=0
 CIFRAR=0
 ARQUIVO_SENHA=""
 SIMULAR=0
@@ -153,6 +154,11 @@ OPCOES
                         com o dump dos bancos MySQL da conta. Sem isso o
                         backup tem apenas o que mora em /home, e banco de
                         dados NAO mora em /home.
+      --so-bancos       SO os bancos: nao compacta a pasta da conta e nem
+                        mede o tamanho dela. Serve para refazer o dump de uma
+                        conta cujo .tar.gz ja esta bom, sem repetir horas de
+                        compactacao. Liga --com-bancos sozinho, e nao mexe no
+                        registro do backup completo.
       --cifrar          Cifra cada arquivo com AES256. Gera .tar.gz.gpg
       --senha-arquivo F Le a senha da cifra do arquivo F em vez de perguntar
       --manter-local    Nao apaga a copia local depois de enviar. Padrao:
@@ -231,6 +237,7 @@ while (($#)); do
     -z|--compressao)   NIVEL_COMPRESSAO="${2:?nivel}"; shift 2 ;;
     --leve)            LEVE=1; shift ;;
     --com-bancos)      COM_BANCOS=1; shift ;;
+    --so-bancos)       SO_BANCOS=1; COM_BANCOS=1; shift ;;
     --cifrar)          CIFRAR=1; shift ;;
     --senha-arquivo)   ARQUIVO_SENHA="${2:?arquivo}"; CIFRAR=1; shift 2 ;;
     --manter-local)    MANTER_LOCAL=1; shift ;;
@@ -1412,13 +1419,20 @@ for u in "${CONTAS[@]}"; do
   arquivo="$DESTINO/$u.tar.gz"
   enviado_ok=0
 
-  # ja existe backup desta conta? Confere de verdade, e so entao decide
-  if ! decide_conta "$u"; then
+  # Com --so-bancos nao se pergunta nada sobre backup anterior: quem pediu so os
+  # bancos quer refazer o dump, e o .tar.gz da conta nem e tocado.
+  if ((SO_BANCOS == 0)) && ! decide_conta "$u"; then
     PULADAS=$((PULADAS + 1))
     LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	0	$EXISTE_TAMANHO	ja-tinha	0")
     continue
   fi
 
+if ((SO_BANCOS)); then
+  cru=0
+  comprimido=0
+  diz "pasta: $dir"
+  diz "so os bancos: nao vou compactar a pasta nem medir o tamanho dela"
+else
   cru="$(tamanho_de "$dir")"
   livre="$(espaco_livre "$DESTINO")"
   preciso=$(( cru * FATOR_ESPACO / 100 + MARGEM ))
@@ -1466,6 +1480,7 @@ for u in "${CONTAS[@]}"; do
     continue
   fi
   feito "tar -tzf passou"
+fi
 
   declare -a para_enviar=()
   erro_banco=0
@@ -1484,7 +1499,7 @@ for u in "${CONTAS[@]}"; do
     esac
   fi
 
-  if ((CIFRAR)); then
+  if ((CIFRAR)) && ((SO_BANCOS == 0)); then
     diz "cifrando"
     if novo="$(cifra_arquivo "$arquivo")"; then
       arquivo="$novo"
@@ -1503,11 +1518,22 @@ for u in "${CONTAS[@]}"; do
     fi
   fi
 
-  sha="$(sha256sum "$arquivo" | awk '{print $1}')"
-  printf '%s  %s\n' "$sha" "$(basename "$arquivo")" > "$arquivo.sha256"
-  chmod 600 "$arquivo" "$arquivo.sha256" 2>/dev/null || true
-
-  para_enviar=("$arquivo" "$arquivo.sha256" ${para_enviar[@]+"${para_enviar[@]}"})
+  if ((SO_BANCOS)); then
+    # nao existe tarball nesta passagem: sobe so o que o dump produziu
+    if ((${#para_enviar[@]} == 0)); then
+      PULADAS=$((PULADAS + 1))
+      LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	0	0	sem-banco	0")
+      continue
+    fi
+    sha="$(sha256sum "${para_enviar[0]}" | awk '{print $1}')"
+    comprimido="$(tamanho_arquivo "${para_enviar[0]}")"
+    chmod 600 "${para_enviar[@]}" 2>/dev/null || true
+  else
+    sha="$(sha256sum "$arquivo" | awk '{print $1}')"
+    printf '%s  %s\n' "$sha" "$(basename "$arquivo")" > "$arquivo.sha256"
+    chmod 600 "$arquivo" "$arquivo.sha256" 2>/dev/null || true
+    para_enviar=("$arquivo" "$arquivo.sha256" ${para_enviar[@]+"${para_enviar[@]}"})
+  fi
 
   if ((ENVIAR)); then
     diz "enviando para $PASTA_DRIVE"
@@ -1537,16 +1563,21 @@ for u in "${CONTAS[@]}"; do
   if ((ENVIAR)) && ((enviado_ok == 0)); then
     FALHA_CONTAS=$((FALHA_CONTAS + 1))
     LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	$cru	$comprimido	erro-envio	$gasto")
-    registra_conta "$u" falha "$comprimido" "$sha" "$DESTINO/$(basename "$arquivo")"
+    registra_conta "$u" falha "$comprimido" "$sha" "$DESTINO/$(basename "${para_enviar[0]}")"
   else
     OK_CONTAS=$((OK_CONTAS + 1))
     situacao=ok
+    ((SO_BANCOS)) && situacao=so-bancos
     ((erro_banco)) && situacao=ok-banco-falhou
     LINHAS_RELATORIO+=("$u	${DOMINIO_DE[$u]:--}	$cru	$comprimido	$situacao	$gasto")
+    # --so-bancos NAO entra como backup completo no registro: a execucao
+    # seguinte acharia que a conta ja esta pronta e pularia o tar da pasta.
+    situacao_reg=ok
+    ((SO_BANCOS)) && situacao_reg=ok-so-bancos
     if ((ENVIAR)); then
-      registra_conta "$u" ok "$comprimido" "$sha" "$PASTA_DRIVE/$(basename "$arquivo")"
+      registra_conta "$u" "$situacao_reg" "$comprimido" "$sha" "$PASTA_DRIVE/$(basename "${para_enviar[0]}")"
     else
-      registra_conta "$u" ok "$comprimido" "$sha" "$DESTINO/$(basename "$arquivo")"
+      registra_conta "$u" "$situacao_reg" "$comprimido" "$sha" "$DESTINO/$(basename "${para_enviar[0]}")"
     fi
   fi
   feito "$u terminou em $((gasto / 60))m $((gasto % 60))s"

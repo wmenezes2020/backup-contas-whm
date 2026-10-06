@@ -1,7 +1,7 @@
-# Graph Report - BACKUP CPANEL  (2026-10-05)
+# Graph Report - BACKUP CPANEL  (2026-10-06)
 
 ## Corpus Check
-- Corpus is ~23,767 words - fits in a single context window. You may not need a graph.
+- Corpus is ~24,492 words - fits in a single context window. You may not need a graph.
 
 ## Summary
 - 99 nodes · 201 edges · 9 communities (8 shown, 1 thin omitted)

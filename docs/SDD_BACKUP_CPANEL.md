@@ -281,8 +281,8 @@ bash scripts/testa-auth.sh
 Ela recorta as funções do script, troca o `/dev/tty` por arquivo, e usa um
 `curl` de mentira, então roda sem falar com o Google.
 
-**Resultado da última execução: 109 verificações na bateria do servidor e 21 na
-da autorização, 130 ao todo, 0 reprovadas.**
+**Resultado da última execução: 120 verificações na bateria do servidor e 21 na
+da autorização, 141 ao todo, 0 reprovadas.**
 
 | Caso | O que prova |
 |---|---|
@@ -303,6 +303,8 @@ da autorização, 130 ao todo, 0 reprovadas.**
 | T14 `--com-bancos` | pega os bancos com prefixo da conta e o banco sem prefixo pelo `/etc/dbowners`, e não leva banco de outra conta |
 | T14b nome fantasma no mapa | nome citado no mapa que não existe como banco é descartado antes do `mysqldump`, e a conta copia todos os bancos bons em vez de ficar sem nenhum |
 | T14c banco sem prefixo | entra pelo mapa, e banco de outra conta não vaza |
+| T14d `--so-bancos` | gera e envia só o dump, não compacta e nem mede a pasta, e o registro marca `ok-so-bancos` para o backup completo seguinte ainda fazer a conta |
+| T14e `--so-bancos` sem banco | conta sem banco é pulada, sai com 0 e não envia arquivo vazio |
 | T15 sem terminal | recusa com o comando a rodar na mão, sem travar esperando entrada |
 | T16 escrita do `rclone.conf` | grava sem `client_id`, preserva remote de outro serviço, não duplica seção, troca o token velho pelo novo, arquivo em 600 |
 | T18 autorização (`scripts/testa-auth.sh`) | o link leva a chave do rclone, o redirecionamento certo, `access_type=offline`, `prompt=consent`, PKCE e o escopo do Drive; a URL colada vira token gravado; colar só o `code` também serve; recusa com mensagem própria quando a pessoa nega na tela, quando nada foi colado, quando o código venceu, quando o token vem sem `refresh_token` e quando o Google não responde |

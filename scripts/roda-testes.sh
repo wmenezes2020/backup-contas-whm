@@ -268,6 +268,31 @@ contem "$B" "cliente2_site" && ok "o banco com prefixo entrou" || nok "T14c pref
 contem "$B" "legado_antigo" && ok "o banco sem prefixo, vindo do mapa, entrou" || nok "T14c dbowners"
 nao_contem "$B" "cliente1_loja" && ok "nao vazou banco de outra conta" || nok "T14c VAZOU banco de outra conta"
 
+caso "T14d --so-bancos: so o dump, sem compactar a pasta"
+limpa; conecta
+roda --so-bancos --contas cliente1
+((CODIGO == 0)) && ok "sai com 0" || nok "T14d codigo=$CODIGO"
+[[ -f "$DRIVE/BACKUP-CPANEL/cliente1-bancos.sql.gz" ]] && ok "enviou o dump dos bancos" || nok "T14d dump no Drive"
+[[ ! -f "$DRIVE/BACKUP-CPANEL/cliente1.tar.gz" ]] && ok "nao compactou nem enviou a pasta da conta" || nok "T14d gerou tar.gz"
+nao_contem "$SAIDA" "compactando" && ok "nem comecou a compactar" || nok "T14d compactou"
+nao_contem "$SAIDA" "tamanho cru" && ok "nem mediu o tamanho da pasta, que e o que demora" || nok "T14d mediu a pasta"
+contem "$SAIDA" "nao vou compactar a pasta" && ok "diz na tela o que esta fazendo" || nok "T14d aviso"
+
+# o registro nao pode marcar a conta como backup completo
+REG="$DEST/.backup-cpanel-registro.tsv"
+[[ "$(awk -F'	' '$3=="cliente1"{print $4}' "$REG" 2>/dev/null)" == "ok-so-bancos" ]]   && ok "o registro marca so-bancos, nao backup completo" || nok "T14d registro errado"
+
+# e por isso um backup completo depois ainda faz a conta
+roda --contas cliente1 --pular-prontas
+[[ -f "$DRIVE/BACKUP-CPANEL/cliente1.tar.gz" ]]   && ok "o backup completo depois nao foi pulado por engano" || nok "T14d pulou o completo"
+
+caso "T14e --so-bancos numa conta sem banco nenhum"
+limpa; conecta
+roda --so-bancos --contas parada9
+((CODIGO == 0)) && ok "sai com 0, nao e erro a conta nao ter banco" || nok "T14e codigo=$CODIGO"
+contem "$SAIDA" "Puladas ....... 1" && ok "conta como pulada" || nok "T14e nao pulou"
+[[ -z "$(ls -A "$DRIVE/BACKUP-CPANEL" 2>/dev/null | grep parada9)" ]]   && ok "nao enviou arquivo vazio" || nok "T14e enviou vazio"
+
 caso "T15 primeira vez sem terminal (cron) e recusada"
 limpa; desconecta
 roda --contas cliente1

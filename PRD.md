@@ -45,7 +45,9 @@ trabalho que não deveria existir aqui.
 | Recusa honesta sem terminal | Primeira autorização exige gente | sem tty o script recusa com o comando a rodar na mão, sem travar esperando entrada |
 | Relatório honesto | Conta por conta: tamanho cru, comprimido, situação e tempo; mais avisos e falhas | `RELATORIO-<carimbo>.txt` local e no Drive, código de saída 2 quando houve falha |
 | Aviso do que falta | Banco de dados não mora em `/home` | o aviso aparece na abertura, no fim e no relatório de toda execução |
-| Bancos opcionais | `--com-bancos` gera `<usuario>-bancos.sql.gz` | dump por conta, pelos bancos com prefixo do usuário mais o que estiver em `/etc/dbowners` |
+| Bancos opcionais | `--com-bancos` gera `<usuario>-bancos.sql.gz` | dump por conta, pelos bancos com prefixo do usuário mais o que estiver em `/etc/dbowners`, e todo nome é conferido contra o `SHOW DATABASES` antes de ir para o `mysqldump` |
+| Um banco ruim não leva os outros | Dump banco a banco, não todos numa chamada só | o arquivo sobe com o que deu, e a conta vira `ok-banco-falhou` em vez de ficar sem nada |
+| Refazer só os bancos | `--so-bancos` pula o `tar` e a medição da pasta | numa conta de 145 GB troca horas por minutos, e o registro marca `ok-so-bancos` para não contar como backup completo |
 | Simulação | Lista contas, tamanhos e estimativa | `--simular` não gera arquivo, não envia e não toma a trava |
 | Prioridade baixa | `renice` e `ionice` no próprio processo | `--sem-nice` desliga |
 | Exclusão mínima e respeitosa | `.cagefs` e `.cl.selector` sempre fora; `/etc/cpbackup-exclude.conf` e o da conta respeitados quando existem | padrão listado nesses arquivos não entra no `.tar.gz` |
@@ -140,8 +142,8 @@ sem usuário no sistema, uma com home em outra partição), mais `virtfs`,
 `mysql` e um `mysqldump` simulados. O `rclone` de mentira sabota de dois jeitos:
 entregando o arquivo cortado, e devolvendo hash errado com o tamanho certo.
 
-**Última execução: 109 verificações na bateria do servidor simulado e 21 na da
-autorização do Drive (`scripts/testa-auth.sh`), 130 ao todo, 0 reprovadas.**
+**Última execução: 120 verificações na bateria do servidor simulado e 21 na da
+autorização do Drive (`scripts/testa-auth.sh`), 141 ao todo, 0 reprovadas.**
 `bash -n` limpo.
 
 Os casos, um por linha, estão na tabela da seção 7 de
