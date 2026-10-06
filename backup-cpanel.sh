@@ -93,6 +93,7 @@ BYTES_ENVIADOS=0
 REGISTRO=""                  # arquivo com as contas ja feitas
 DECISAO_GERAL=""             # vazio | refazer | pular, quando a pessoa responde "todas"
 EXISTE_QUANDO=""; EXISTE_TAMANHO=0; EXISTE_ONDE=""; EXISTE_IDADE_H=0
+BANCOS_PARCIAL=0             # 1 quando parte dos bancos da conta falhou
 CONFERENCIA=""               # MD5 | tamanho, do ultimo arquivo enviado
 CONFERENCIA_POR_TAMANHO=0    # 1 quando alguma conta ficou so na conferencia de tamanho
 
@@ -958,22 +959,42 @@ cifra_arquivo() {  # cifra_arquivo <arquivo>  ->  imprime o novo caminho
 # senha passa pela linha de comando, nem aparece no ps do servidor.
 # ---------------------------------------------------------------------------
 # O cPanel cria banco com o prefixo "usuario_", e e assim que a conta e dona
-# dele. Banco antigo, criado a mao sem o prefixo, so aparece no /etc/dbowners,
-# que e lido aqui quando existe. Banco fora dos dois casos nao e detectado, e o
-# relatorio diz quantos foram guardados para a conta.
+# dele. Banco antigo, criado a mao sem o prefixo, so aparece no /etc/dbowners.
+#
+# Nenhum nome vindo de arquivo entra no mysqldump sem passar pelo SHOW DATABASES
+# antes. Dois motivos, os dois medidos em servidor de verdade:
+#
+#   1. um nome que nao existe derruba o dump INTEIRO da conta. O mysqldump para
+#      no primeiro erro, entao "Unknown database 'x'" faz a conta inteira ficar
+#      sem copia de banco, mesmo tendo dez bancos bons.
+#   2. mapa lido errado poderia trazer banco de OUTRA conta para dentro deste
+#      backup, que e vazamento de dado de cliente. Exigir que o nome exista nao
+#      resolve isso sozinho, mas a lista escolhida aparece na tela a cada conta,
+#      entao quem opera ve o que esta sendo copiado.
 bancos_da_conta() {
-  local u="$1"
+  local u="$1" existentes b
+  existentes="$(mysql -N -B -e "SHOW DATABASES" 2>>"$LOG")" || existentes=""
+  [[ -n "$existentes" ]] || return 0
   {
-    mysql -N -B -e "SHOW DATABASES" 2>>"$LOG" | awk -v p="${u}_" 'index($0,p)==1' || true
+    printf '%s\n' "$existentes" | awk -v p="${u}_" 'index($0,p)==1'
     if [[ -f "/etc/dbowners" ]]; then
-      awk -v u="$u" -F'[:[:space:]]+' '$2==u{print $1}' "/etc/dbowners" 2>/dev/null || true
+      awk -v u="$u" -F'[:[:space:]]+' '$2==u{print $1}' "/etc/dbowners" 2>/dev/null
     fi
-  } | sort -u
+  } | sort -u | while IFS= read -r b; do
+      [[ -n "$b" ]] || continue
+      case "$b" in information_schema|mysql|performance_schema|sys|test) continue ;; esac
+      printf '%s\n' "$existentes" | grep -qxF -- "$b" || continue
+      printf '%s\n' "$b"
+    done
 }
 
+# Devolve 0 quando gerou arquivo aproveitavel (inteiro ou em parte, e nesse caso
+# BANCOS_PARCIAL fica em 1), 1 quando nao deu para gerar nada, 2 quando a conta
+# nao tem banco ou a maquina nao tem como copiar.
 dump_bancos() {  # dump_bancos <usuario> <saida>
-  local u="$1" saida="$2"
+  local u="$1" saida="$2" b bons ruins contagem
   declare -a bancos=()
+  BANCOS_PARCIAL=0
   tem mysqldump || { aviso "$u: sem mysqldump nesta maquina, bancos nao foram guardados"; return 2; }
   tem mysql     || { aviso "$u: sem cliente mysql nesta maquina, bancos nao foram guardados"; return 2; }
   if ! mysql -N -B -e "SELECT 1" >/dev/null 2>>"$LOG"; then
@@ -982,18 +1003,42 @@ dump_bancos() {  # dump_bancos <usuario> <saida>
   fi
   mapfile -t bancos < <(bancos_da_conta "$u")
   ((${#bancos[@]})) || { diz "$u: nenhum banco MySQL"; return 2; }
+  diz "$u: ${#bancos[@]} banco(s): ${bancos[*]}"
 
-  local st=0
+  # Um banco por vez, de proposito. Com --databases a b c o mysqldump para no
+  # primeiro que falhar e a conta perde todos. Assim, um banco com problema
+  # custa aquele banco, e os outros entram.
+  contagem="$TMP/bancos-$u.txt"
+  : > "$contagem"
   declare -a estados=()
   set +e
-  mysqldump --single-transaction --quick --routines --events --triggers \
-            --default-character-set=utf8mb4 --databases "${bancos[@]}" 2>>"$LOG" \
-    | gzip -"$NIVEL_COMPRESSAO" > "$saida"
+  {
+    for b in "${bancos[@]}"; do
+      if mysqldump --single-transaction --quick --routines --events --triggers \
+                   --default-character-set=utf8mb4 --databases "$b" 2>>"$LOG"; then
+        printf 'ok\t%s\n' "$b" >> "$contagem"
+      else
+        printf 'falha\t%s\n' "$b" >> "$contagem"
+      fi
+    done
+  } | gzip -"$NIVEL_COMPRESSAO" > "$saida"
   estados=("${PIPESTATUS[@]}")
   set -e
-  st="${estados[0]}"
-  if ((st != 0)) || [[ "${estados[1]:-0}" != 0 ]]; then
-    falha "$u: o dump dos bancos falhou (veja $LOG)"
+  if [[ "${estados[1]:-0}" != 0 ]]; then
+    falha "$u: a compressao do dump dos bancos falhou (veja $LOG)"
+    rm -f "$saida"
+    return 1
+  fi
+
+  bons="$(awk -F'\t' '$1=="ok"{n++} END{print n+0}' "$contagem" 2>/dev/null || echo 0)"
+  ruins="$(awk -F'\t' '$1=="falha"{n++} END{print n+0}' "$contagem" 2>/dev/null || echo 0)"
+  if ((ruins > 0)); then
+    while IFS=$'\t' read -r _situacao b; do
+      [[ -n "$b" ]] && falha "$u: o banco '$b' nao pode ser copiado (veja $LOG)"
+    done < <(awk -F'\t' '$1=="falha"' "$contagem" 2>/dev/null)
+  fi
+  if ((bons == 0)); then
+    falha "$u: nenhum banco pode ser copiado"
     rm -f "$saida"
     return 1
   fi
@@ -1002,7 +1047,11 @@ dump_bancos() {  # dump_bancos <usuario> <saida>
     rm -f "$saida"
     return 1
   fi
-  feito "$u: ${#bancos[@]} banco(s) em $(basename "$saida") ($(legivel "$(tamanho_arquivo "$saida")"))"
+  if ((ruins > 0)); then
+    BANCOS_PARCIAL=1
+    aviso "$u: $bons banco(s) copiados e $ruins falharam. O arquivo vai assim mesmo, com o que deu."
+  fi
+  feito "$u: $bons de ${#bancos[@]} banco(s) em $(basename "$saida") ($(legivel "$(tamanho_arquivo "$saida")"))"
   return 0
 }
 
@@ -1427,8 +1476,11 @@ for u in "${CONTAS[@]}"; do
     rm -f "$sql"
     rb=0; dump_bancos "$u" "$sql" || rb=$?
     case "$rb" in
-      0) para_enviar+=("$sql") ;;
-      1) erro_banco=1 ;;   # falha de verdade; 2 e "esta conta nao tem banco"
+      0) para_enviar+=("$sql")
+         # dump parcial sobe do mesmo jeito: metade dos bancos e melhor que
+         # nenhum. A conta so fica marcada no relatorio.
+         ((BANCOS_PARCIAL)) && erro_banco=1 ;;
+      1) erro_banco=1 ;;   # nao deu para gerar nada; 2 e "esta conta nao tem banco"
     esac
   fi
 

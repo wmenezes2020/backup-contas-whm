@@ -140,8 +140,8 @@ sem usuário no sistema, uma com home em outra partição), mais `virtfs`,
 `mysql` e um `mysqldump` simulados. O `rclone` de mentira sabota de dois jeitos:
 entregando o arquivo cortado, e devolvendo hash errado com o tamanho certo.
 
-**Última execução: 100 verificações na bateria do servidor simulado e 21 na da
-autorização do Drive (`scripts/testa-auth.sh`), 121 ao todo, 0 reprovadas.**
+**Última execução: 109 verificações na bateria do servidor simulado e 21 na da
+autorização do Drive (`scripts/testa-auth.sh`), 130 ao todo, 0 reprovadas.**
 `bash -n` limpo.
 
 Os casos, um por linha, estão na tabela da seção 7 de

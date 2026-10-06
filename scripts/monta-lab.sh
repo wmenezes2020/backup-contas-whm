@@ -72,7 +72,10 @@ printf 'DNS=mudou.com\n' > "$RAIZ/var/cpanel/users/mudou"
 printf 'UID_MIN 1000\n' > "$RAIZ/etc/login.defs"
 printf '11.126.0.9\n'   > "$RAIZ/usr/local/cpanel/version"
 printf 'HOMEDIR %s\n'   "$RAIZ/home" > "$RAIZ/etc/wwwacct.conf"
-printf 'cliente1_loja: cliente1\nlegado_antigo: cliente2\n' > "$RAIZ/etc/dbowners"
+# O caso que quebrou em producao: o mapa cita um nome que nao existe como
+# banco, e ate o proprio nome da conta. Sem validacao o mysqldump morre no
+# primeiro e a conta inteira fica sem copia de banco.
+printf 'cliente1_loja: cliente1\nlegado_antigo: cliente2\ncliente1: cliente1\nfantasma_sumido: cliente1\n' > "$RAIZ/etc/dbowners"
 
 # ---------------------------------------------------------------------------
 # stubs
@@ -183,10 +186,16 @@ STUB
 
 cat > "$LAB/bin/mysqldump" <<'STUB'
 #!/usr/bin/env bash
+# Igual ao de verdade: banco que nao existe faz o comando sair com erro.
 set -u
+EXISTENTES="information_schema mysql cliente1_loja cliente1_blog cliente2_site legado_antigo"
 echo "-- dump de mentira"
 for a in "$@"; do
-  case "$a" in -*) ;; --*) ;; *) echo "-- banco: $a" ;; esac
+  case "$a" in -*) continue ;; esac
+  case " $EXISTENTES " in
+    *" $a "*) echo "-- banco: $a" ;;
+    *) echo "mysqldump: Got error: 1049: \"Unknown database '$a'\"" >&2; exit 2 ;;
+  esac
 done
 echo "CREATE TABLE t (i int);"
 exit 0

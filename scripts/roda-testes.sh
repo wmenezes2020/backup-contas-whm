@@ -246,6 +246,28 @@ B="$(gunzip -c "$DEST/cliente2-bancos.sql.gz" 2>/dev/null)"
 contem "$B" "legado_antigo" && ok "pegou banco sem prefixo pelo /etc/dbowners" || nok "T14 dbowners"
 
 # ===========================================================================
+caso "T14b nome fantasma no mapa nao derruba o dump da conta"
+# Este e o caso que quebrou em producao: /etc/dbowners citando o nome da conta e
+# um banco que nao existe. Antes, o mysqldump morria no primeiro nome errado e a
+# conta inteira ficava sem copia de banco nenhuma.
+limpa
+roda --sem-drive --com-bancos --contas cliente1
+B="$(gunzip -c "$DEST/cliente1-bancos.sql.gz" 2>/dev/null)"
+contem "$B" "cliente1_loja" && ok "copiou os bancos bons da conta" || nok "T14b bancos bons"
+contem "$B" "cliente1_blog" && ok "copiou todos os bons, nao parou no primeiro" || nok "T14b todos os bons"
+nao_contem "$SAIDA" "nenhum banco pode ser copiado" && ok "a conta nao ficou sem dump" || nok "T14b conta sem dump"
+nao_contem "$SAIDA" "nao pode ser copiado" && ok "nem tentou os nomes que nao existem" || nok "T14b tentou fantasma"
+((CODIGO == 0)) && ok "sai com 0" || nok "T14b codigo=$CODIGO"
+contem "$SAIDA" "banco(s): cliente1_blog cliente1_loja" && ok "mostra na tela quais bancos vai copiar" || nok "T14b lista na tela"
+
+caso "T14c o banco sem prefixo entra, e o de outra conta nao"
+limpa
+roda --sem-drive --com-bancos --contas cliente2
+B="$(gunzip -c "$DEST/cliente2-bancos.sql.gz" 2>/dev/null)"
+contem "$B" "cliente2_site" && ok "o banco com prefixo entrou" || nok "T14c prefixo"
+contem "$B" "legado_antigo" && ok "o banco sem prefixo, vindo do mapa, entrou" || nok "T14c dbowners"
+nao_contem "$B" "cliente1_loja" && ok "nao vazou banco de outra conta" || nok "T14c VAZOU banco de outra conta"
+
 caso "T15 primeira vez sem terminal (cron) e recusada"
 limpa; desconecta
 roda --contas cliente1
